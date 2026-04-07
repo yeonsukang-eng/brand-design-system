@@ -1,0 +1,22 @@
+{
+  "name": "@axflow/design-tokens",
+  "version": "1.0.0",
+  "description": "axflow brand design system tokens — colors, typography, icons",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "css"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  },
+  "keywords": [
+    "design-system",
+    "design-tokens",
+    "axflow",
+    "brand"
+  ],
+  "license": "MIT"
+}

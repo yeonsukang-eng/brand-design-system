@@ -5,10 +5,12 @@ import { useBrandStore } from "@/store/brand-store";
 import ColorEditor from "./ColorEditor";
 import TypographyEditor from "./TypographyEditor";
 import SpacingEditor from "./SpacingEditor";
+import IconEditor from "./IconEditor";
+import ComponentEditor from "./ComponentEditor";
 import ExportPanel from "./ExportPanel";
 import ShareLink from "./ShareLink";
 
-type Tab = "colors" | "typography" | "spacing" | "export";
+type Tab = "colors" | "typography" | "spacing" | "icons" | "components" | "export";
 
 export default function BrandEditor() {
   const { getActiveBrand } = useBrandStore();
@@ -30,6 +32,8 @@ export default function BrandEditor() {
     { key: "colors", label: "Colors" },
     { key: "typography", label: "Typography" },
     { key: "spacing", label: "Spacing" },
+    { key: "icons", label: "Icons" },
+    { key: "components", label: "Components" },
     { key: "export", label: "Export" },
   ];
 
@@ -46,12 +50,12 @@ export default function BrandEditor() {
           <ShareLink brand={brand} />
         </div>
 
-        <div className="flex gap-1 mb-8 border-b border-zinc-200 dark:border-zinc-700">
+        <div className="flex gap-1 mb-8 border-b border-zinc-200 dark:border-zinc-700 overflow-x-auto">
           {tabs.map((t) => (
             <button
               key={t.key}
               onClick={() => setTab(t.key)}
-              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors -mb-px ${
+              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors -mb-px whitespace-nowrap ${
                 tab === t.key
                   ? "border-zinc-900 text-zinc-900 dark:border-zinc-100 dark:text-zinc-100"
                   : "border-transparent text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"
@@ -65,6 +69,8 @@ export default function BrandEditor() {
         {tab === "colors" && <ColorEditor brandId={brand.id} />}
         {tab === "typography" && <TypographyEditor brandId={brand.id} />}
         {tab === "spacing" && <SpacingEditor brandId={brand.id} />}
+        {tab === "icons" && <IconEditor brandId={brand.id} />}
+        {tab === "components" && <ComponentEditor brandId={brand.id} />}
         {tab === "export" && <ExportPanel brand={brand} />}
       </div>
     </div>

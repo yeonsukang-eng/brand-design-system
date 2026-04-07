@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useBrandStore } from "@/store/brand-store";
+import { useCopy } from "@/hooks/useCopy";
 
 export default function TypographyEditor({ brandId }: { brandId: string }) {
   const { brands, addTypography, deleteTypography } = useBrandStore();
@@ -12,8 +13,12 @@ export default function TypographyEditor({ brandId }: { brandId: string }) {
   const [fontSize, setFontSize] = useState("16px");
   const [fontWeight, setFontWeight] = useState("400");
   const [lineHeight, setLineHeight] = useState("1.5");
+  const { copiedId, copy } = useCopy();
 
   if (!brand) return null;
+
+  const typoCss = (t: typeof brand.typography[number]) =>
+    `.text-${t.name.toLowerCase()} {\n  font-family: "${t.fontFamily}", sans-serif;\n  font-size: ${t.fontSize};\n  font-weight: ${t.fontWeight};\n  line-height: ${t.lineHeight};\n}`;
 
   const handleAdd = () => {
     if (!name.trim()) return;
@@ -102,7 +107,8 @@ export default function TypographyEditor({ brandId }: { brandId: string }) {
         {brand.typography.map((typo) => (
           <div
             key={typo.id}
-            className="group flex items-center justify-between p-4 rounded-xl border border-zinc-200 bg-white dark:border-zinc-700 dark:bg-zinc-900"
+            className="group flex items-center justify-between p-4 rounded-xl border border-zinc-200 bg-white cursor-pointer hover:ring-2 hover:ring-zinc-400 transition-all dark:border-zinc-700 dark:bg-zinc-900"
+            onClick={() => copy(typoCss(typo), typo.id)}
           >
             <div className="flex-1">
               <div
@@ -117,14 +123,20 @@ export default function TypographyEditor({ brandId }: { brandId: string }) {
                 {typo.name}
               </div>
               <div className="flex gap-4 text-xs text-zinc-500 font-mono">
-                <span>{typo.fontFamily}</span>
-                <span>{typo.fontSize}</span>
-                <span>{typo.fontWeight}</span>
-                <span>LH {typo.lineHeight}</span>
+                {copiedId === typo.id ? (
+                  <span className="text-green-600">CSS copied!</span>
+                ) : (
+                  <>
+                    <span>{typo.fontFamily}</span>
+                    <span>{typo.fontSize}</span>
+                    <span>{typo.fontWeight}</span>
+                    <span>LH {typo.lineHeight}</span>
+                  </>
+                )}
               </div>
             </div>
             <button
-              onClick={() => deleteTypography(brandId, typo.id)}
+              onClick={(e) => { e.stopPropagation(); deleteTypography(brandId, typo.id); }}
               className="opacity-0 group-hover:opacity-100 w-8 h-8 rounded-full hover:bg-zinc-100 flex items-center justify-center text-zinc-400 hover:text-zinc-600 dark:hover:bg-zinc-800"
             >
               ×

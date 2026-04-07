@@ -20,14 +20,34 @@ export interface SpacingToken {
   value: string;
 }
 
+export interface IconToken {
+  id: string;
+  name: string;
+  category: "general" | "action" | "file" | "data" | "user" | "social";
+  variants: ("line" | "fill")[];
+  size: string;
+  figmaNodeId?: string;
+}
+
+export interface ComponentToken {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  variants: string[];
+}
+
 export interface BrandSystem {
   id: string;
   name: string;
   description: string;
   logoUrl?: string;
+  figmaFileKey?: string;
   colors: ColorToken[];
   typography: TypographyToken[];
   spacing: SpacingToken[];
+  icons: IconToken[];
+  components: ComponentToken[];
   createdAt: string;
   updatedAt: string;
 }

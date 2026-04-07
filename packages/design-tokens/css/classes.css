@@ -1,0 +1,171 @@
+/* axflow Design System — Utility Classes */
+
+/* Colors */
+.color-n900 { color: #1D1D1F; }
+.bg-n900 { background-color: #1D1D1F; }
+.color-n800 { color: #3A3A3C; }
+.bg-n800 { background-color: #3A3A3C; }
+.color-n700 { color: #48484A; }
+.bg-n700 { background-color: #48484A; }
+.color-n600 { color: #636366; }
+.bg-n600 { background-color: #636366; }
+.color-n500 { color: #8E8E93; }
+.bg-n500 { background-color: #8E8E93; }
+.color-n400 { color: #AEAEB2; }
+.bg-n400 { background-color: #AEAEB2; }
+.color-n300 { color: #C7C7CC; }
+.bg-n300 { background-color: #C7C7CC; }
+.color-n200 { color: #DADAE0; }
+.bg-n200 { background-color: #DADAE0; }
+.color-n100 { color: #E8E8EE; }
+.bg-n100 { background-color: #E8E8EE; }
+.color-n75 { color: #EDEDF3; }
+.bg-n75 { background-color: #EDEDF3; }
+.color-n50 { color: #F9F9FB; }
+.bg-n50 { background-color: #F9F9FB; }
+.color-n0 { color: #FFFFFF; }
+.bg-n0 { background-color: #FFFFFF; }
+.color-e600 { color: #E64848; }
+.bg-e600 { background-color: #E64848; }
+.color-e100 { color: #FFF0F0; }
+.bg-e100 { background-color: #FFF0F0; }
+
+/* Typography */
+.text-h700-48px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.text-h700-40px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.text-h700-28px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.text-h700-24px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.text-h700-20px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.text-h700-18px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.text-t600-28px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.text-t600-24px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.text-t600-20px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.text-t600-18px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.text-t600-16px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.text-l500-28px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.text-l500-24px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.text-l500-20px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.text-l500-18px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.text-l500-16px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.text-l500-14px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.text-l500-12px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.text-l500-10px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.text-b400-18px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.text-b400-16px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.text-b400-14px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.text-b400-12px {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+}

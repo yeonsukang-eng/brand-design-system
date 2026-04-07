@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { BrandSystem, ColorToken, TypographyToken, SpacingToken } from "@/types/brand";
+import { BrandSystem, ColorToken, TypographyToken, SpacingToken, IconToken, ComponentToken } from "@/types/brand";
 import { axflowBrand } from "@/data/axflow-brand";
 
 function generateId() {
@@ -12,26 +12,43 @@ interface BrandStore {
   activeBrandId: string | null;
   getActiveBrand: () => BrandSystem | undefined;
 
-  // Brand CRUD
   createBrand: (name: string, description: string) => string;
   updateBrand: (id: string, updates: Partial<Pick<BrandSystem, "name" | "description" | "logoUrl">>) => void;
   deleteBrand: (id: string) => void;
   setActiveBrand: (id: string | null) => void;
 
-  // Color tokens
   addColor: (brandId: string, color: Omit<ColorToken, "id">) => void;
   updateColor: (brandId: string, colorId: string, updates: Partial<Omit<ColorToken, "id">>) => void;
   deleteColor: (brandId: string, colorId: string) => void;
 
-  // Typography tokens
   addTypography: (brandId: string, typo: Omit<TypographyToken, "id">) => void;
   updateTypography: (brandId: string, typoId: string, updates: Partial<Omit<TypographyToken, "id">>) => void;
   deleteTypography: (brandId: string, typoId: string) => void;
 
-  // Spacing tokens
   addSpacing: (brandId: string, spacing: Omit<SpacingToken, "id">) => void;
   updateSpacing: (brandId: string, spacingId: string, updates: Partial<Omit<SpacingToken, "id">>) => void;
   deleteSpacing: (brandId: string, spacingId: string) => void;
+
+  addIcon: (brandId: string, icon: Omit<IconToken, "id">) => void;
+  updateIcon: (brandId: string, iconId: string, updates: Partial<Omit<IconToken, "id">>) => void;
+  deleteIcon: (brandId: string, iconId: string) => void;
+
+  addComponent: (brandId: string, component: Omit<ComponentToken, "id">) => void;
+  updateComponent: (brandId: string, componentId: string, updates: Partial<Omit<ComponentToken, "id">>) => void;
+  deleteComponent: (brandId: string, componentId: string) => void;
+}
+
+function updateBrandTokens<T>(
+  brands: BrandSystem[],
+  brandId: string,
+  field: keyof BrandSystem,
+  updater: (items: T[]) => T[]
+): BrandSystem[] {
+  return brands.map((b) =>
+    b.id === brandId
+      ? { ...b, [field]: updater(b[field] as T[]), updatedAt: new Date().toISOString() }
+      : b
+  );
 }
 
 export const useBrandStore = create<BrandStore>()(
@@ -55,6 +72,8 @@ export const useBrandStore = create<BrandStore>()(
           colors: [],
           typography: [],
           spacing: [],
+          icons: [],
+          components: [],
           createdAt: now,
           updatedAt: now,
         };
@@ -82,111 +101,114 @@ export const useBrandStore = create<BrandStore>()(
 
       setActiveBrand: (id) => set({ activeBrandId: id }),
 
+      // Colors
       addColor: (brandId, color) => {
         set((state) => ({
-          brands: state.brands.map((b) =>
-            b.id === brandId
-              ? { ...b, colors: [...b.colors, { ...color, id: generateId() }], updatedAt: new Date().toISOString() }
-              : b
-          ),
+          brands: updateBrandTokens(state.brands, brandId, "colors", (items: ColorToken[]) => [...items, { ...color, id: generateId() }]),
         }));
       },
-
       updateColor: (brandId, colorId, updates) => {
         set((state) => ({
-          brands: state.brands.map((b) =>
-            b.id === brandId
-              ? {
-                  ...b,
-                  colors: b.colors.map((c) => (c.id === colorId ? { ...c, ...updates } : c)),
-                  updatedAt: new Date().toISOString(),
-                }
-              : b
+          brands: updateBrandTokens(state.brands, brandId, "colors", (items: ColorToken[]) =>
+            items.map((c) => (c.id === colorId ? { ...c, ...updates } : c))
           ),
         }));
       },
-
       deleteColor: (brandId, colorId) => {
         set((state) => ({
-          brands: state.brands.map((b) =>
-            b.id === brandId
-              ? { ...b, colors: b.colors.filter((c) => c.id !== colorId), updatedAt: new Date().toISOString() }
-              : b
+          brands: updateBrandTokens(state.brands, brandId, "colors", (items: ColorToken[]) =>
+            items.filter((c) => c.id !== colorId)
           ),
         }));
       },
 
+      // Typography
       addTypography: (brandId, typo) => {
         set((state) => ({
-          brands: state.brands.map((b) =>
-            b.id === brandId
-              ? { ...b, typography: [...b.typography, { ...typo, id: generateId() }], updatedAt: new Date().toISOString() }
-              : b
-          ),
+          brands: updateBrandTokens(state.brands, brandId, "typography", (items: TypographyToken[]) => [...items, { ...typo, id: generateId() }]),
         }));
       },
-
       updateTypography: (brandId, typoId, updates) => {
         set((state) => ({
-          brands: state.brands.map((b) =>
-            b.id === brandId
-              ? {
-                  ...b,
-                  typography: b.typography.map((t) => (t.id === typoId ? { ...t, ...updates } : t)),
-                  updatedAt: new Date().toISOString(),
-                }
-              : b
+          brands: updateBrandTokens(state.brands, brandId, "typography", (items: TypographyToken[]) =>
+            items.map((t) => (t.id === typoId ? { ...t, ...updates } : t))
           ),
         }));
       },
-
       deleteTypography: (brandId, typoId) => {
         set((state) => ({
-          brands: state.brands.map((b) =>
-            b.id === brandId
-              ? { ...b, typography: b.typography.filter((t) => t.id !== typoId), updatedAt: new Date().toISOString() }
-              : b
+          brands: updateBrandTokens(state.brands, brandId, "typography", (items: TypographyToken[]) =>
+            items.filter((t) => t.id !== typoId)
           ),
         }));
       },
 
+      // Spacing
       addSpacing: (brandId, spacing) => {
         set((state) => ({
-          brands: state.brands.map((b) =>
-            b.id === brandId
-              ? { ...b, spacing: [...b.spacing, { ...spacing, id: generateId() }], updatedAt: new Date().toISOString() }
-              : b
-          ),
+          brands: updateBrandTokens(state.brands, brandId, "spacing", (items: SpacingToken[]) => [...items, { ...spacing, id: generateId() }]),
         }));
       },
-
       updateSpacing: (brandId, spacingId, updates) => {
         set((state) => ({
-          brands: state.brands.map((b) =>
-            b.id === brandId
-              ? {
-                  ...b,
-                  spacing: b.spacing.map((s) => (s.id === spacingId ? { ...s, ...updates } : s)),
-                  updatedAt: new Date().toISOString(),
-                }
-              : b
+          brands: updateBrandTokens(state.brands, brandId, "spacing", (items: SpacingToken[]) =>
+            items.map((s) => (s.id === spacingId ? { ...s, ...updates } : s))
+          ),
+        }));
+      },
+      deleteSpacing: (brandId, spacingId) => {
+        set((state) => ({
+          brands: updateBrandTokens(state.brands, brandId, "spacing", (items: SpacingToken[]) =>
+            items.filter((s) => s.id !== spacingId)
           ),
         }));
       },
 
-      deleteSpacing: (brandId, spacingId) => {
+      // Icons
+      addIcon: (brandId, icon) => {
         set((state) => ({
-          brands: state.brands.map((b) =>
-            b.id === brandId
-              ? { ...b, spacing: b.spacing.filter((s) => s.id !== spacingId), updatedAt: new Date().toISOString() }
-              : b
+          brands: updateBrandTokens(state.brands, brandId, "icons", (items: IconToken[]) => [...items, { ...icon, id: generateId() }]),
+        }));
+      },
+      updateIcon: (brandId, iconId, updates) => {
+        set((state) => ({
+          brands: updateBrandTokens(state.brands, brandId, "icons", (items: IconToken[]) =>
+            items.map((i) => (i.id === iconId ? { ...i, ...updates } : i))
+          ),
+        }));
+      },
+      deleteIcon: (brandId, iconId) => {
+        set((state) => ({
+          brands: updateBrandTokens(state.brands, brandId, "icons", (items: IconToken[]) =>
+            items.filter((i) => i.id !== iconId)
+          ),
+        }));
+      },
+
+      // Components
+      addComponent: (brandId, component) => {
+        set((state) => ({
+          brands: updateBrandTokens(state.brands, brandId, "components", (items: ComponentToken[]) => [...items, { ...component, id: generateId() }]),
+        }));
+      },
+      updateComponent: (brandId, componentId, updates) => {
+        set((state) => ({
+          brands: updateBrandTokens(state.brands, brandId, "components", (items: ComponentToken[]) =>
+            items.map((c) => (c.id === componentId ? { ...c, ...updates } : c))
+          ),
+        }));
+      },
+      deleteComponent: (brandId, componentId) => {
+        set((state) => ({
+          brands: updateBrandTokens(state.brands, brandId, "components", (items: ComponentToken[]) =>
+            items.filter((c) => c.id !== componentId)
           ),
         }));
       },
     }),
     {
       name: "brand-design-system",
-      version: 1,
+      version: 6,
       migrate: () => ({
         brands: [axflowBrand],
         activeBrandId: "axflow",

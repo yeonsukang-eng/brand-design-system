@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useBrandStore } from "@/store/brand-store";
+import { useCopy } from "@/hooks/useCopy";
 
 export default function SpacingEditor({ brandId }: { brandId: string }) {
   const { brands, addSpacing, deleteSpacing } = useBrandStore();
@@ -9,6 +10,8 @@ export default function SpacingEditor({ brandId }: { brandId: string }) {
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState("");
   const [value, setValue] = useState("8px");
+
+  const { copiedId, copy } = useCopy();
 
   if (!brand) return null;
 
@@ -71,7 +74,8 @@ export default function SpacingEditor({ brandId }: { brandId: string }) {
         {brand.spacing.map((sp) => (
           <div
             key={sp.id}
-            className="group flex items-center gap-4 p-3 rounded-xl border border-zinc-200 bg-white dark:border-zinc-700 dark:bg-zinc-900"
+            className="group flex items-center gap-4 p-3 rounded-xl border border-zinc-200 bg-white cursor-pointer hover:ring-2 hover:ring-zinc-400 transition-all dark:border-zinc-700 dark:bg-zinc-900"
+            onClick={() => copy(sp.value, sp.id)}
           >
             <div
               className="rounded bg-zinc-900 dark:bg-zinc-100 shrink-0"
@@ -79,10 +83,12 @@ export default function SpacingEditor({ brandId }: { brandId: string }) {
             />
             <div className="flex-1">
               <div className="text-sm font-medium">{sp.name}</div>
-              <div className="text-xs text-zinc-500 font-mono">{sp.value}</div>
+              <div className="text-xs text-zinc-500 font-mono">
+                {copiedId === sp.id ? <span className="text-green-600">Copied!</span> : sp.value}
+              </div>
             </div>
             <button
-              onClick={() => deleteSpacing(brandId, sp.id)}
+              onClick={(e) => { e.stopPropagation(); deleteSpacing(brandId, sp.id); }}
               className="opacity-0 group-hover:opacity-100 w-8 h-8 rounded-full hover:bg-zinc-100 flex items-center justify-center text-zinc-400 hover:text-zinc-600 dark:hover:bg-zinc-800"
             >
               ×

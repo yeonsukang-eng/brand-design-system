@@ -3,23 +3,94 @@
 import { useState } from "react";
 import { BrandSystem } from "@/types/brand";
 
-type ExportFormat = "css" | "json" | "tailwind";
+type ExportFormat = "css-classes" | "css-variables" | "json" | "tailwind";
 
-function exportCSS(brand: BrandSystem): string {
+const FORMAT_LABELS: Record<ExportFormat, string> = {
+  "css-classes": "CSS Classes",
+  "css-variables": "CSS Variables",
+  json: "JSON",
+  tailwind: "Tailwind",
+};
+
+function toKebab(str: string) {
+  return str.toLowerCase().replace(/\s+/g, "-");
+}
+
+function exportCSSClasses(brand: BrandSystem): string {
+  const lines: string[] = [];
+
+  if (brand.colors.length > 0) {
+    lines.push("/* ===================== */");
+    lines.push("/*        Colors         */");
+    lines.push("/* ===================== */\n");
+    brand.colors.forEach((c) => {
+      lines.push(`.color-${toKebab(c.name)} {`);
+      lines.push(`  color: ${c.hex};`);
+      lines.push(`}\n`);
+      lines.push(`.bg-${toKebab(c.name)} {`);
+      lines.push(`  background-color: ${c.hex};`);
+      lines.push(`}\n`);
+    });
+  }
+
+  if (brand.typography.length > 0) {
+    lines.push("/* ===================== */");
+    lines.push("/*      Typography       */");
+    lines.push("/* ===================== */\n");
+    brand.typography.forEach((t) => {
+      lines.push(`.text-${toKebab(t.name)} {`);
+      lines.push(`  font-family: "${t.fontFamily}", -apple-system, BlinkMacSystemFont, sans-serif;`);
+      lines.push(`  font-size: ${t.fontSize};`);
+      lines.push(`  font-weight: ${t.fontWeight};`);
+      lines.push(`  line-height: ${t.lineHeight};`);
+      lines.push(`}\n`);
+    });
+  }
+
+  if (brand.spacing.length > 0) {
+    lines.push("/* ===================== */");
+    lines.push("/*        Spacing        */");
+    lines.push("/* ===================== */\n");
+    brand.spacing.forEach((s) => {
+      lines.push(`.gap-${toKebab(s.name)} { gap: ${s.value}; }`);
+      lines.push(`.p-${toKebab(s.name)} { padding: ${s.value}; }`);
+      lines.push(`.m-${toKebab(s.name)} { margin: ${s.value}; }\n`);
+    });
+  }
+
+  return lines.join("\n");
+}
+
+function exportCSSVariables(brand: BrandSystem): string {
   const lines = [`:root {`];
-  brand.colors.forEach((c) => {
-    lines.push(`  --color-${c.name.toLowerCase().replace(/\s+/g, "-")}: ${c.hex};`);
-  });
-  brand.spacing.forEach((s) => {
-    lines.push(`  --spacing-${s.name.toLowerCase().replace(/\s+/g, "-")}: ${s.value};`);
-  });
-  brand.typography.forEach((t) => {
-    const prefix = `--font-${t.name.toLowerCase().replace(/\s+/g, "-")}`;
-    lines.push(`  ${prefix}-family: ${t.fontFamily};`);
-    lines.push(`  ${prefix}-size: ${t.fontSize};`);
-    lines.push(`  ${prefix}-weight: ${t.fontWeight};`);
-    lines.push(`  ${prefix}-line-height: ${t.lineHeight};`);
-  });
+
+  if (brand.colors.length > 0) {
+    lines.push("  /* Colors */");
+    brand.colors.forEach((c) => {
+      lines.push(`  --color-${toKebab(c.name)}: ${c.hex};`);
+    });
+    lines.push("");
+  }
+
+  if (brand.typography.length > 0) {
+    lines.push("  /* Typography */");
+    brand.typography.forEach((t) => {
+      const prefix = `--font-${toKebab(t.name)}`;
+      lines.push(`  ${prefix}-family: "${t.fontFamily}", -apple-system, BlinkMacSystemFont, sans-serif;`);
+      lines.push(`  ${prefix}-size: ${t.fontSize};`);
+      lines.push(`  ${prefix}-weight: ${t.fontWeight};`);
+      lines.push(`  ${prefix}-line-height: ${t.lineHeight};`);
+    });
+    lines.push("");
+  }
+
+  if (brand.spacing.length > 0) {
+    lines.push("  /* Spacing */");
+    brand.spacing.forEach((s) => {
+      lines.push(`  --spacing-${toKebab(s.name)}: ${s.value};`);
+    });
+  }
+
   lines.push(`}`);
   return lines.join("\n");
 }
@@ -36,6 +107,12 @@ function exportJSON(brand: BrandSystem): string {
         ])
       ),
       spacing: Object.fromEntries(brand.spacing.map((s) => [s.name, s.value])),
+      icons: Object.fromEntries(
+        brand.icons.map((i) => [i.name, { category: i.category, variants: i.variants, size: i.size }])
+      ),
+      components: Object.fromEntries(
+        brand.components.map((c) => [c.name, { category: c.category, description: c.description, variants: c.variants }])
+      ),
     },
     null,
     2
@@ -46,10 +123,10 @@ function exportTailwind(brand: BrandSystem): string {
   const config = {
     theme: {
       extend: {
-        colors: Object.fromEntries(brand.colors.map((c) => [c.name.toLowerCase().replace(/\s+/g, "-"), c.hex])),
-        spacing: Object.fromEntries(brand.spacing.map((s) => [s.name.toLowerCase().replace(/\s+/g, "-"), s.value])),
+        colors: Object.fromEntries(brand.colors.map((c) => [toKebab(c.name), c.hex])),
+        spacing: Object.fromEntries(brand.spacing.map((s) => [toKebab(s.name), s.value])),
         fontFamily: Object.fromEntries(
-          brand.typography.map((t) => [t.name.toLowerCase().replace(/\s+/g, "-"), [t.fontFamily]])
+          brand.typography.map((t) => [toKebab(t.name), [t.fontFamily]])
         ),
       },
     },
@@ -57,17 +134,20 @@ function exportTailwind(brand: BrandSystem): string {
   return `// tailwind.config extension\n${JSON.stringify(config, null, 2)}`;
 }
 
+const EXPORTERS: Record<ExportFormat, (b: BrandSystem) => string> = {
+  "css-classes": exportCSSClasses,
+  "css-variables": exportCSSVariables,
+  json: exportJSON,
+  tailwind: exportTailwind,
+};
+
+const FORMAT_ORDER: ExportFormat[] = ["css-classes", "css-variables", "json", "tailwind"];
+
 export default function ExportPanel({ brand }: { brand: BrandSystem }) {
-  const [format, setFormat] = useState<ExportFormat>("css");
+  const [format, setFormat] = useState<ExportFormat>("css-classes");
   const [copied, setCopied] = useState(false);
 
-  const exporters: Record<ExportFormat, (b: BrandSystem) => string> = {
-    css: exportCSS,
-    json: exportJSON,
-    tailwind: exportTailwind,
-  };
-
-  const output = exporters[format](brand);
+  const output = EXPORTERS[format](brand);
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(output);
@@ -80,7 +160,7 @@ export default function ExportPanel({ brand }: { brand: BrandSystem }) {
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold">Export Tokens</h3>
         <div className="flex gap-1 bg-zinc-100 rounded-lg p-1 dark:bg-zinc-800">
-          {(["css", "json", "tailwind"] as ExportFormat[]).map((f) => (
+          {FORMAT_ORDER.map((f) => (
             <button
               key={f}
               onClick={() => setFormat(f)}
@@ -90,14 +170,14 @@ export default function ExportPanel({ brand }: { brand: BrandSystem }) {
                   : "text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"
               }`}
             >
-              {f === "css" ? "CSS Variables" : f === "json" ? "JSON" : "Tailwind"}
+              {FORMAT_LABELS[f]}
             </button>
           ))}
         </div>
       </div>
 
       <div className="relative">
-        <pre className="p-4 rounded-xl border border-zinc-200 bg-zinc-50 text-sm font-mono overflow-x-auto whitespace-pre dark:border-zinc-700 dark:bg-zinc-900">
+        <pre className="p-4 rounded-xl border border-zinc-200 bg-zinc-50 text-sm font-mono overflow-x-auto whitespace-pre max-h-[600px] overflow-y-auto dark:border-zinc-700 dark:bg-zinc-900">
           {output}
         </pre>
         <button

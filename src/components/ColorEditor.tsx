@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useBrandStore } from "@/store/brand-store";
 import { ColorToken } from "@/types/brand";
+import { useCopy } from "@/hooks/useCopy";
 
 const CATEGORIES: ColorToken["category"][] = ["primary", "secondary", "accent", "neutral", "semantic"];
 
@@ -13,6 +14,8 @@ export default function ColorEditor({ brandId }: { brandId: string }) {
   const [name, setName] = useState("");
   const [hex, setHex] = useState("#000000");
   const [category, setCategory] = useState<ColorToken["category"]>("primary");
+
+  const { copiedId, copy } = useCopy();
 
   if (!brand) return null;
 
@@ -106,7 +109,8 @@ export default function ColorEditor({ brandId }: { brandId: string }) {
             {group.colors.map((color) => (
               <div
                 key={color.id}
-                className="group relative rounded-xl border border-zinc-200 overflow-hidden bg-white dark:border-zinc-700 dark:bg-zinc-900"
+                className="group relative rounded-xl border border-zinc-200 overflow-hidden bg-white dark:border-zinc-700 dark:bg-zinc-900 cursor-pointer hover:ring-2 hover:ring-zinc-400 transition-all"
+                onClick={() => copy(color.hex, color.id)}
               >
                 <div
                   className="h-20 w-full"
@@ -114,10 +118,16 @@ export default function ColorEditor({ brandId }: { brandId: string }) {
                 />
                 <div className="p-3">
                   <div className="text-sm font-medium truncate">{color.name}</div>
-                  <div className="text-xs text-zinc-500 font-mono">{color.hex}</div>
+                  <div className="text-xs text-zinc-500 font-mono">
+                    {copiedId === color.id ? (
+                      <span className="text-green-600">Copied!</span>
+                    ) : (
+                      color.hex
+                    )}
+                  </div>
                 </div>
                 <button
-                  onClick={() => deleteColor(brandId, color.id)}
+                  onClick={(e) => { e.stopPropagation(); deleteColor(brandId, color.id); }}
                   className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 w-6 h-6 rounded-full bg-black/50 text-white text-xs flex items-center justify-center hover:bg-black/70"
                 >
                   ×
