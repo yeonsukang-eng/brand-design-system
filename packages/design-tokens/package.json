@@ -12,6 +12,11 @@
   "scripts": {
     "build": "node scripts/build.mjs"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yeonsukang-eng/brand-design-system.git",
+    "directory": "packages/design-tokens"
+  },
   "keywords": [
     "design-system",
     "design-tokens",
