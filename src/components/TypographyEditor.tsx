@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useBrandStore } from "@/store/brand-store";
 import { useCopy } from "@/hooks/useCopy";
 
-export default function TypographyEditor({ brandId }: { brandId: string }) {
+export default function TypographyEditor({ brandId, search = "" }: { brandId: string; search?: string }) {
   const { brands, addTypography, deleteTypography } = useBrandStore();
   const brand = brands.find((b) => b.id === brandId);
   const [showForm, setShowForm] = useState(false);
@@ -99,12 +99,20 @@ export default function TypographyEditor({ brandId }: { brandId: string }) {
         </div>
       )}
 
+      <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200 text-xs text-zinc-500 mb-4 flex gap-4 dark:bg-zinc-900 dark:border-zinc-700">
+        <span><strong className="text-zinc-700 dark:text-zinc-300">Pretendard</strong> — UI 전체 (Headline, Title, Label, Body)</span>
+        <span><strong className="text-zinc-700 dark:text-zinc-300">Outfit</strong> — 브랜딩 전용 (로고, 슬로건)</span>
+      </div>
+
       {brand.typography.length === 0 && !showForm && (
         <p className="text-sm text-zinc-400">No typography styles defined yet.</p>
       )}
 
       <div className="flex flex-col gap-3">
-        {brand.typography.map((typo) => (
+        {brand.typography.filter((t) => {
+          const q = search.toLowerCase();
+          return !q || t.name.toLowerCase().includes(q) || t.fontFamily.toLowerCase().includes(q) || t.fontSize.includes(q);
+        }).map((typo) => (
           <div
             key={typo.id}
             className="group flex items-center justify-between p-4 rounded-xl border border-zinc-200 bg-white cursor-pointer hover:ring-2 hover:ring-zinc-400 transition-all dark:border-zinc-700 dark:bg-zinc-900"

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useBrandStore } from "@/store/brand-store";
 import { useCopy } from "@/hooks/useCopy";
 
-export default function SpacingEditor({ brandId }: { brandId: string }) {
+export default function SpacingEditor({ brandId, search = "" }: { brandId: string; search?: string }) {
   const { brands, addSpacing, deleteSpacing } = useBrandStore();
   const brand = brands.find((b) => b.id === brandId);
   const [showForm, setShowForm] = useState(false);
@@ -71,7 +71,10 @@ export default function SpacingEditor({ brandId }: { brandId: string }) {
       )}
 
       <div className="flex flex-col gap-2">
-        {brand.spacing.map((sp) => (
+        {brand.spacing.filter((s) => {
+          const q = search.toLowerCase();
+          return !q || s.name.toLowerCase().includes(q) || s.value.includes(q);
+        }).map((sp) => (
           <div
             key={sp.id}
             className="group flex items-center gap-4 p-3 rounded-xl border border-zinc-200 bg-white cursor-pointer hover:ring-2 hover:ring-zinc-400 transition-all dark:border-zinc-700 dark:bg-zinc-900"

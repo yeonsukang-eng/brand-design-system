@@ -1,0 +1,238 @@
+/* ===================== */
+/*   Segmented Control   */
+/* ===================== */
+
+.axctrl-segmented {
+  display: inline-flex;
+  background-color: #EDEDF3;
+  border-radius: 12px; /* rounded-xl */
+  padding: 3px;
+  gap: 4px;
+}
+
+.axctrl-segment {
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #636366;
+  padding: 6px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.axctrl-segment.active {
+  background-color: #FFFFFF;
+  color: #1D1D1F;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.axctrl-segment:hover:not(.active) {
+  color: #1D1D1F;
+}
+
+/* ===================== */
+/*         Tabs          */
+/* ===================== */
+
+.axctrl-tabs {
+  display: inline-flex;
+  gap: 0;
+  border-bottom: 1px solid #E8E8EE;
+}
+
+.axctrl-tab {
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #8E8E93;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.2s;
+}
+
+.axctrl-tab.active {
+  color: #1D1D1F;
+  border-bottom-color: #1D1D1F;
+}
+
+.axctrl-tab:hover:not(.active) {
+  color: #636366;
+}
+
+/* ===================== */
+/*         Chips         */
+/* ===================== */
+
+.axctrl-chip {
+  font-family: "Pretendard", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #636366;
+  background-color: #FFFFFF;
+  border: 1px solid #DADAE0;
+  border-radius: 999px;
+  padding: 4px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.axctrl-chip.selected {
+  background-color: #636366;
+  border-color: #636366;
+  color: #FFFFFF;
+}
+
+.axctrl-chip:hover:not(.selected):not(.disabled) {
+  border-color: #C7C7CC;
+  background-color: #F9F9FB;
+}
+
+.axctrl-chip.disabled {
+  color: #AEAEB2;
+  border-color: #E8E8EE;
+  cursor: not-allowed;
+}
+
+/* ===================== */
+/*       Checkbox        */
+/* ===================== */
+
+.axctrl-checkbox-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  color: #1D1D1F;
+  cursor: pointer;
+}
+
+.axctrl-checkbox-wrap.disabled {
+  color: #AEAEB2;
+  cursor: not-allowed;
+}
+
+.axctrl-checkbox {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #DADAE0;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.axctrl-checkbox.checked,
+.axctrl-checkbox.indeterminate {
+  background-color: #636366;
+  border-color: #636366;
+}
+
+.axctrl-checkbox.disabled {
+  background-color: #EDEDF3;
+  border-color: #DADAE0;
+}
+
+.axctrl-checkbox:hover:not(.checked):not(.indeterminate):not(.disabled) {
+  border-color: #C7C7CC;
+}
+
+/* ===================== */
+/*         Radio         */
+/* ===================== */
+
+.axctrl-radio-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  color: #1D1D1F;
+  cursor: pointer;
+}
+
+.axctrl-radio-wrap.disabled {
+  color: #AEAEB2;
+  cursor: not-allowed;
+}
+
+.axctrl-radio {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #DADAE0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.axctrl-radio.selected {
+  border-color: #636366;
+}
+
+.axctrl-radio.disabled {
+  border-color: #DADAE0;
+  background-color: #EDEDF3;
+}
+
+.axctrl-radio:hover:not(.selected):not(.disabled) {
+  border-color: #C7C7CC;
+}
+
+.axctrl-radio-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #636366;
+}
+
+/* ===================== */
+/*        Toggle         */
+/* ===================== */
+
+.axctrl-toggle {
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
+  padding: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.axctrl-toggle.on {
+  background-color: #636366;
+}
+
+.axctrl-toggle.off {
+  background-color: #DADAE0;
+}
+
+.axctrl-toggle.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.axctrl-toggle:hover:not(.disabled) {
+  opacity: 0.85;
+}
+
+.axctrl-toggle-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s;
+}
+
+.axctrl-toggle.on .axctrl-toggle-thumb {
+  transform: translateX(20px);
+}

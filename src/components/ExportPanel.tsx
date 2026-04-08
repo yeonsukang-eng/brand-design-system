@@ -3,11 +3,9 @@
 import { useState } from "react";
 import { BrandSystem } from "@/types/brand";
 
-type ExportFormat = "css-classes" | "css-variables" | "json" | "tailwind";
+type ExportFormat = "json" | "tailwind";
 
 const FORMAT_LABELS: Record<ExportFormat, string> = {
-  "css-classes": "CSS Classes",
-  "css-variables": "CSS Variables",
   json: "JSON",
   tailwind: "Tailwind",
 };
@@ -135,16 +133,14 @@ function exportTailwind(brand: BrandSystem): string {
 }
 
 const EXPORTERS: Record<ExportFormat, (b: BrandSystem) => string> = {
-  "css-classes": exportCSSClasses,
-  "css-variables": exportCSSVariables,
   json: exportJSON,
   tailwind: exportTailwind,
 };
 
-const FORMAT_ORDER: ExportFormat[] = ["css-classes", "css-variables", "json", "tailwind"];
+const FORMAT_ORDER: ExportFormat[] = ["json", "tailwind"];
 
 export default function ExportPanel({ brand }: { brand: BrandSystem }) {
-  const [format, setFormat] = useState<ExportFormat>("css-classes");
+  const [format, setFormat] = useState<ExportFormat>("json");
   const [copied, setCopied] = useState(false);
 
   const output = EXPORTERS[format](brand);

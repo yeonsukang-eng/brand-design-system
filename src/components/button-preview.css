@@ -1,0 +1,248 @@
+/* ===================== */
+/*   axflow Button Base  */
+/* ===================== */
+
+.axbtn,
+.axbtn-icon {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.axbtn::after,
+.axbtn-icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #1D1D1F;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.axbtn {
+  border-radius: 8px; /* rounded-lg */
+}
+
+.axbtn-icon {
+  border-radius: 50%;
+}
+
+/* Sizes — text buttons */
+.axbtn.btn-lg { height: 48px; padding: 0 24px; font-size: 16px; line-height: 1.5; border-radius: 12px; /* rounded-xl */ }
+.axbtn.btn-md { height: 36px; padding: 0 20px; font-size: 14px; line-height: 1.5; border-radius: 8px; }
+.axbtn.btn-sm { height: 32px; padding: 0 12px; font-size: 12px; line-height: 1.5; border-radius: 6px; }
+
+/* Sizes — icon buttons */
+.axbtn-icon.btn-lg { width: 48px; height: 48px; }
+.axbtn-icon.btn-md { width: 36px; height: 36px; }
+.axbtn-icon.btn-sm { width: 32px; height: 32px; }
+
+/* ===================== */
+/*    Disabled (shared)  */
+/* ===================== */
+
+.axbtn.axbtn-disabled,
+.axbtn-icon.axbtn-disabled {
+  background-color: #EDEDF3 !important;
+  color: #AEAEB2 !important;
+  border-color: transparent !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+
+.axbtn.axbtn-disabled::after,
+.axbtn-icon.axbtn-disabled::after {
+  display: none;
+}
+
+/* ===================== */
+/*     Solid/Primary     */
+/* ===================== */
+/* bg: N600 #636366, text: white */
+/* hover: +overlay #1D1D1F 5%, focused: 8%, pressed: 12% */
+
+.axbtn.solid-primary {
+  background-color: #636366;
+  color: white;
+}
+.axbtn.solid-primary:hover:not(:disabled)::after {
+  opacity: 0.05;
+}
+.axbtn.solid-primary:focus-visible:not(:disabled)::after {
+  opacity: 0.08;
+}
+.axbtn.solid-primary:active:not(:disabled)::after {
+  opacity: 0.12;
+}
+
+/* ===================== */
+/*   Outlined/Primary    */
+/* ===================== */
+/* bg: transparent, border: N600 #636366, text: N600 */
+
+.axbtn.outlined-primary {
+  background-color: transparent;
+  color: #636366;
+  border: 1.5px solid #636366;
+}
+.axbtn.outlined-primary:hover:not(:disabled) {
+  background-color: #F9F9FB;
+}
+.axbtn.outlined-primary:hover:not(:disabled)::after {
+  opacity: 0.05;
+}
+.axbtn.outlined-primary:focus-visible:not(:disabled)::after {
+  opacity: 0.08;
+}
+.axbtn.outlined-primary:active:not(:disabled)::after {
+  opacity: 0.12;
+}
+
+/* ===================== */
+/*  Outlined/Secondary   */
+/* ===================== */
+/* bg: transparent, border: N200 #DADAE0, text: N900 */
+
+.axbtn.outlined-secondary {
+  background-color: transparent;
+  color: #1D1D1F;
+  border: 1.5px solid #DADAE0;
+}
+.axbtn.outlined-secondary:hover:not(:disabled) {
+  background-color: #F9F9FB;
+}
+.axbtn.outlined-secondary:hover:not(:disabled)::after {
+  opacity: 0.05;
+}
+.axbtn.outlined-secondary:focus-visible:not(:disabled)::after {
+  opacity: 0.08;
+}
+.axbtn.outlined-secondary:active:not(:disabled)::after {
+  opacity: 0.12;
+}
+
+/* ===================== */
+/*  Outlined/Assistive   */
+/* ===================== */
+/* bg: transparent, border: N100 #E8E8EE, text: N900 */
+
+.axbtn.outlined-assistive {
+  background-color: transparent;
+  color: #1D1D1F;
+  border: 1px solid #E8E8EE;
+}
+.axbtn.outlined-assistive:hover:not(:disabled) {
+  background-color: #F9F9FB;
+}
+.axbtn.outlined-assistive:hover:not(:disabled)::after {
+  opacity: 0.05;
+}
+.axbtn.outlined-assistive:focus-visible:not(:disabled)::after {
+  opacity: 0.08;
+}
+.axbtn.outlined-assistive:active:not(:disabled)::after {
+  opacity: 0.12;
+}
+
+/* ===================== */
+/*       Text button     */
+/* ===================== */
+/* bg: transparent, text: N600 */
+
+.axbtn.text-btn {
+  background-color: transparent;
+  color: #636366;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.axbtn.text-btn:hover:not(:disabled) {
+  background-color: #F9F9FB;
+}
+.axbtn.text-btn:hover:not(:disabled)::after {
+  opacity: 0.05;
+}
+.axbtn.text-btn:active:not(:disabled)::after {
+  opacity: 0.12;
+}
+
+/* ===================== */
+/*      Icon/Normal      */
+/* ===================== */
+/* bg: transparent, color: N900 */
+
+.axbtn-icon.icon-normal {
+  background-color: transparent;
+  color: #1D1D1F;
+}
+.axbtn-icon.icon-normal:hover:not(:disabled) {
+  background-color: #F9F9FB;
+}
+.axbtn-icon.icon-normal:hover:not(:disabled)::after {
+  opacity: 0.05;
+}
+.axbtn-icon.icon-normal:active:not(:disabled)::after {
+  opacity: 0.12;
+}
+
+/* ===================== */
+/*    Icon/Background    */
+/* ===================== */
+/* bg: N75 #EDEDF3, color: N600 */
+
+.axbtn-icon.icon-background {
+  background-color: #EDEDF3;
+  color: #636366;
+}
+.axbtn-icon.icon-background:hover:not(:disabled)::after {
+  opacity: 0.05;
+}
+.axbtn-icon.icon-background:active:not(:disabled)::after {
+  opacity: 0.12;
+}
+
+/* ===================== */
+/*     Icon/Outlined     */
+/* ===================== */
+/* bg: transparent, border: N200, color: N900 */
+
+.axbtn-icon.icon-outlined {
+  background-color: transparent;
+  color: #1D1D1F;
+  border: 1.5px solid #DADAE0;
+}
+.axbtn-icon.icon-outlined:hover:not(:disabled) {
+  background-color: #F9F9FB;
+}
+.axbtn-icon.icon-outlined:hover:not(:disabled)::after {
+  opacity: 0.05;
+}
+.axbtn-icon.icon-outlined:active:not(:disabled)::after {
+  opacity: 0.12;
+}
+
+/* ===================== */
+/*       Icon/Solid      */
+/* ===================== */
+/* bg: N600 #636366, color: white */
+
+.axbtn-icon.icon-solid {
+  background-color: #636366;
+  color: white;
+}
+.axbtn-icon.icon-solid:hover:not(:disabled)::after {
+  opacity: 0.05;
+}
+.axbtn-icon.icon-solid:active:not(:disabled)::after {
+  opacity: 0.12;
+}

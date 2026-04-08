@@ -2,11 +2,16 @@
 
 import { useState } from "react";
 import { useBrandStore } from "@/store/brand-store";
+import { ButtonPreview } from "./ButtonPreview";
+import { FormPreview } from "./FormPreview";
+import { NavPreview } from "./NavPreview";
+import { ControlPreview } from "./ControlPreview";
 
-export default function ComponentEditor({ brandId }: { brandId: string }) {
+export default function ComponentEditor({ brandId, search = "" }: { brandId: string; search?: string }) {
   const { brands, addComponent, deleteComponent } = useBrandStore();
   const brand = brands.find((b) => b.id === brandId);
   const [showForm, setShowForm] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
@@ -33,11 +38,20 @@ export default function ComponentEditor({ brandId }: { brandId: string }) {
     setShowForm(false);
   };
 
-  const components = brand.components ?? [];
-  const categories = [...new Set(components.map((c) => c.category))];
-  const grouped = categories.map((cat) => ({
+  const q = search.toLowerCase();
+  const components = (brand.components ?? []).filter((c) =>
+    !q || c.name.toLowerCase().includes(q) || c.category.toLowerCase().includes(q) || c.description.toLowerCase().includes(q)
+  );
+  const allCategories = [...new Set(components.map((c) => c.category))];
+
+  const filtered = activeCategory
+    ? components.filter((c) => c.category === activeCategory)
+    : components;
+
+  const visibleCategories = [...new Set(filtered.map((c) => c.category))];
+  const grouped = visibleCategories.map((cat) => ({
     category: cat,
-    components: components.filter((c) => c.category === cat),
+    components: filtered.filter((c) => c.category === cat),
   }));
 
   return (
@@ -105,15 +119,46 @@ export default function ComponentEditor({ brandId }: { brandId: string }) {
         </div>
       )}
 
-      {components.length === 0 && !showForm && (
-        <p className="text-sm text-zinc-400">No components defined yet.</p>
+      {/* 1단계: 카테고리 칩 */}
+      {allCategories.length > 1 && (
+        <div className="flex flex-wrap gap-2 mb-4">
+          <button
+            onClick={() => setActiveCategory(null)}
+            className={`px-3 py-1.5 text-sm rounded-full transition-colors ${
+              activeCategory === null
+                ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
+                : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700"
+            }`}
+          >
+            All
+          </button>
+          {allCategories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(activeCategory === cat ? null : cat)}
+              className={`px-3 py-1.5 text-sm rounded-full capitalize transition-colors ${
+                activeCategory === cat
+                  ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
+                  : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {filtered.length === 0 && !showForm && (
+        <p className="text-sm text-zinc-400">No components found.</p>
       )}
 
       {grouped.map((group) => (
         <div key={group.category} className="mb-8">
-          <h4 className="text-sm font-medium text-zinc-500 uppercase tracking-wider mb-3">
-            {group.category}
-          </h4>
+          {!activeCategory && (
+            <h4 className="text-sm font-medium text-zinc-500 uppercase tracking-wider mb-3">
+              {group.category}
+            </h4>
+          )}
           <div className="flex flex-col gap-3">
             {group.components.map((comp) => (
               <div
@@ -125,8 +170,26 @@ export default function ComponentEditor({ brandId }: { brandId: string }) {
                   {comp.description && (
                     <p className="text-sm text-zinc-500 mt-1">{comp.description}</p>
                   )}
+                  {comp.category === "button" && (
+                    <ButtonPreview componentName={comp.name} />
+                  )}
+                  {comp.category === "form" && (
+                    <FormPreview componentName={comp.name} />
+                  )}
+                  {comp.category === "dropdown" && (
+                    <FormPreview componentName={comp.name} />
+                  )}
+                  {comp.category === "search" && (
+                    <FormPreview componentName={comp.name} />
+                  )}
+                  {comp.category === "navigation" && (
+                    <NavPreview componentName={comp.name} />
+                  )}
+                  {comp.category === "control" && (
+                    <ControlPreview componentName={comp.name} />
+                  )}
                   {comp.variants.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mt-2">
+                    <div className="flex flex-wrap gap-1.5 mt-3">
                       {comp.variants.map((v) => (
                         <span
                           key={v}

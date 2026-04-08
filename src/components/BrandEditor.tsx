@@ -1,21 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useBrandStore } from "@/store/brand-store";
 import ColorEditor from "./ColorEditor";
 import TypographyEditor from "./TypographyEditor";
 import SpacingEditor from "./SpacingEditor";
 import IconEditor from "./IconEditor";
+import ElevationEditor from "./ElevationEditor";
 import ComponentEditor from "./ComponentEditor";
 import ExportPanel from "./ExportPanel";
+import { TailwindChangelog } from "./TailwindChangelog";
 import ShareLink from "./ShareLink";
 
-type Tab = "colors" | "typography" | "spacing" | "icons" | "components" | "export";
+type Tab = "colors" | "typography" | "icons" | "elevations" | "components" | "export";
 
 export default function BrandEditor() {
   const { getActiveBrand } = useBrandStore();
   const brand = getActiveBrand();
   const [tab, setTab] = useState<Tab>("colors");
+  const [search, setSearch] = useState("");
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo(0, 0);
+  }, [tab]);
 
   if (!brand) {
     return (
@@ -31,15 +39,15 @@ export default function BrandEditor() {
   const tabs: { key: Tab; label: string }[] = [
     { key: "colors", label: "Colors" },
     { key: "typography", label: "Typography" },
-    { key: "spacing", label: "Spacing" },
-    { key: "icons", label: "Icons" },
+{ key: "icons", label: "Icons" },
+    { key: "elevations", label: "Elevation" },
     { key: "components", label: "Components" },
-    { key: "export", label: "Export" },
+{ key: "export", label: "Export" },
   ];
 
   return (
-    <div className="flex-1 overflow-y-auto">
-      <div className="max-w-4xl mx-auto p-8">
+    <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="max-w-4xl mx-auto w-full px-8 pt-8 pb-0">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-2xl font-bold">{brand.name}</h1>
@@ -47,10 +55,19 @@ export default function BrandEditor() {
               <p className="text-sm text-zinc-500 mt-1">{brand.description}</p>
             )}
           </div>
-          <ShareLink brand={brand} />
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              placeholder="Search tokens..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="px-3 py-2 text-sm border border-zinc-300 rounded-lg bg-transparent w-48 focus:outline-none focus:ring-2 focus:ring-zinc-400 dark:border-zinc-600"
+            />
+            <ShareLink brand={brand} />
+          </div>
         </div>
 
-        <div className="flex gap-1 mb-8 border-b border-zinc-200 dark:border-zinc-700 overflow-x-auto">
+        <div className="flex gap-1 mb-0 border-b border-zinc-200 dark:border-zinc-700">
           {tabs.map((t) => (
             <button
               key={t.key}
@@ -65,13 +82,18 @@ export default function BrandEditor() {
             </button>
           ))}
         </div>
+      </div>
 
-        {tab === "colors" && <ColorEditor brandId={brand.id} />}
-        {tab === "typography" && <TypographyEditor brandId={brand.id} />}
-        {tab === "spacing" && <SpacingEditor brandId={brand.id} />}
-        {tab === "icons" && <IconEditor brandId={brand.id} />}
-        {tab === "components" && <ComponentEditor brandId={brand.id} />}
-        {tab === "export" && <ExportPanel brand={brand} />}
+      <div key={tab} className="flex-1 overflow-y-auto">
+      <div className="max-w-4xl mx-auto px-8 pt-8 pb-8">
+
+        {tab === "colors" && <ColorEditor brandId={brand.id} search={search} />}
+        {tab === "typography" && <><TailwindChangelog tab="typography" /><TypographyEditor brandId={brand.id} search={search} /></>}
+{tab === "icons" && <IconEditor brandId={brand.id} search={search} />}
+        {tab === "elevations" && <ElevationEditor brandId={brand.id} search={search} />}
+        {tab === "components" && <><TailwindChangelog tab="components" /><ComponentEditor brandId={brand.id} search={search} /></>}
+{tab === "export" && <ExportPanel brand={brand} />}
+      </div>
       </div>
     </div>
   );

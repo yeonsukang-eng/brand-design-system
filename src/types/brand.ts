@@ -29,6 +29,18 @@ export interface IconToken {
   figmaNodeId?: string;
 }
 
+export interface ElevationToken {
+  id: string;
+  name: string;
+  x: string;
+  y: string;
+  blur: string;
+  color: string;
+  opacity: string;
+  stroke?: string;
+  borderRadius?: string;
+}
+
 export interface ComponentToken {
   id: string;
   name: string;
@@ -47,6 +59,7 @@ export interface BrandSystem {
   typography: TypographyToken[];
   spacing: SpacingToken[];
   icons: IconToken[];
+  elevations: ElevationToken[];
   components: ComponentToken[];
   createdAt: string;
   updatedAt: string;

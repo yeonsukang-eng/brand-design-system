@@ -8,7 +8,7 @@ import { useCopy } from "@/hooks/useCopy";
 
 const CATEGORIES: IconToken["category"][] = ["general", "action", "file", "data", "user", "social"];
 
-export default function IconEditor({ brandId }: { brandId: string }) {
+export default function IconEditor({ brandId, search = "" }: { brandId: string; search?: string }) {
   const { brands, addIcon, deleteIcon } = useBrandStore();
   const brand = brands.find((b) => b.id === brandId);
   const [showForm, setShowForm] = useState(false);
@@ -32,7 +32,10 @@ export default function IconEditor({ brandId }: { brandId: string }) {
     setShowForm(false);
   };
 
-  const icons = brand.icons ?? [];
+  const q = search.toLowerCase();
+  const icons = (brand.icons ?? []).filter((i) =>
+    !q || i.name.toLowerCase().includes(q) || i.category.includes(q)
+  );
   const grouped = CATEGORIES.map((cat) => ({
     category: cat,
     icons: icons.filter((i) => i.category === cat),

@@ -7,7 +7,7 @@ import { useCopy } from "@/hooks/useCopy";
 
 const CATEGORIES: ColorToken["category"][] = ["primary", "secondary", "accent", "neutral", "semantic"];
 
-export default function ColorEditor({ brandId }: { brandId: string }) {
+export default function ColorEditor({ brandId, search = "" }: { brandId: string; search?: string }) {
   const { brands, addColor, updateColor, deleteColor } = useBrandStore();
   const brand = brands.find((b) => b.id === brandId);
   const [showForm, setShowForm] = useState(false);
@@ -27,9 +27,13 @@ export default function ColorEditor({ brandId }: { brandId: string }) {
     setShowForm(false);
   };
 
+  const q = search.toLowerCase();
+  const filtered = brand.colors.filter((c) =>
+    !q || c.name.toLowerCase().includes(q) || c.hex.toLowerCase().includes(q) || c.category.includes(q)
+  );
   const grouped = CATEGORIES.map((cat) => ({
     category: cat,
-    colors: brand.colors.filter((c) => c.category === cat),
+    colors: filtered.filter((c) => c.category === cat),
   })).filter((g) => g.colors.length > 0);
 
   return (

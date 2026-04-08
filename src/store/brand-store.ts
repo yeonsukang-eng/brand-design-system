@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { BrandSystem, ColorToken, TypographyToken, SpacingToken, IconToken, ComponentToken } from "@/types/brand";
+import { BrandSystem, ColorToken, TypographyToken, SpacingToken, IconToken, ElevationToken, ComponentToken } from "@/types/brand";
 import { axflowBrand } from "@/data/axflow-brand";
 
 function generateId() {
@@ -73,6 +73,7 @@ export const useBrandStore = create<BrandStore>()(
           typography: [],
           spacing: [],
           icons: [],
+          elevations: [],
           components: [],
           createdAt: now,
           updatedAt: now,
@@ -208,7 +209,7 @@ export const useBrandStore = create<BrandStore>()(
     }),
     {
       name: "brand-design-system",
-      version: 6,
+      version: 17,
       migrate: () => ({
         brands: [axflowBrand],
         activeBrandId: "axflow",

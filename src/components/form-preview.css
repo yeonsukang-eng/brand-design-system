@@ -1,0 +1,283 @@
+/* ===================== */
+/*   axflow Form Base    */
+/* ===================== */
+
+.axform-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 180px;
+}
+
+.axform-label {
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1D1D1F;
+  line-height: 1.5;
+}
+
+.axform-label-error {
+  color: #E64848;
+}
+
+.axform-label-disabled {
+  color: #AEAEB2;
+}
+
+/* Input */
+.axform-input,
+.axform-textarea {
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #1D1D1F;
+  background-color: #FFFFFF;
+  border: 1px solid #DADAE0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  outline: none;
+  transition: all 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.axform-textarea {
+  resize: none;
+  min-height: 80px;
+}
+
+.axform-input::placeholder,
+.axform-textarea::placeholder {
+  color: #AEAEB2;
+}
+
+/* States */
+.axform-input.normal,
+.axform-textarea.normal {
+  border-color: #DADAE0;
+}
+
+.axform-input.hovered,
+.axform-textarea.hovered,
+.axform-input:hover:not(:disabled):not(.error),
+.axform-textarea:hover:not(:disabled):not(.error) {
+  border-color: #C7C7CC;
+}
+
+.axform-input.focused,
+.axform-textarea.focused,
+.axform-input:focus:not(:disabled):not(.error),
+.axform-textarea:focus:not(:disabled):not(.error) {
+  border-color: #636366;
+  box-shadow: 0 0 0 2px rgba(99, 99, 102, 0.15); /* ring-2 ring-neutral-500/15 */
+}
+
+.axform-input.filled,
+.axform-textarea.filled {
+  border-color: #DADAE0;
+  color: #1D1D1F;
+}
+
+.axform-input.error,
+.axform-textarea.error {
+  border-color: #E64848;
+  color: #E64848;
+}
+
+.axform-input.error:focus,
+.axform-textarea.error:focus {
+  box-shadow: 0 0 0 2px rgba(230, 72, 72, 0.15);
+}
+
+.axform-input.disabled,
+.axform-textarea.disabled,
+.axform-input:disabled,
+.axform-textarea:disabled {
+  background-color: #F9F9FB;
+  border-color: #E8E8EE;
+  color: #AEAEB2;
+  cursor: not-allowed;
+}
+
+/* Helper text */
+.axform-helper {
+  font-family: "Pretendard", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #8E8E93;
+  line-height: 1.5;
+}
+
+.axform-helper.error {
+  color: #E64848;
+}
+
+/* ===================== */
+/*       Dropdown        */
+/* ===================== */
+
+.axform-select {
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+  border: 1px solid #DADAE0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.axform-select-placeholder {
+  color: #AEAEB2;
+}
+
+.axform-select-value {
+  color: #1D1D1F;
+}
+
+.axform-select-icon {
+  color: #8E8E93;
+  flex-shrink: 0;
+}
+
+.axform-select.hovered,
+.axform-select:hover:not(.disabled) {
+  border-color: #C7C7CC;
+}
+
+.axform-select.focused {
+  border-color: #636366;
+  box-shadow: 0 0 0 2px rgba(99, 99, 102, 0.15); /* ring-2 ring-neutral-500/15 */
+}
+
+.axform-select.filled {
+  border-color: #DADAE0;
+}
+
+.axform-select.disabled {
+  background-color: #F9F9FB;
+  border-color: #E8E8EE;
+  color: #AEAEB2;
+  cursor: not-allowed;
+}
+
+.axform-select.disabled .axform-select-placeholder,
+.axform-select.disabled .axform-select-icon {
+  color: #AEAEB2;
+}
+
+/* Dropdown list */
+.axform-dropdown-list {
+  border: 1px solid #E8E8EE;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.06);
+  padding: 4px;
+  margin-top: 4px;
+}
+
+.axform-list-item {
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  color: #1D1D1F;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.axform-list-item:hover,
+.axform-list-item.hovered {
+  background-color: #F9F9FB;
+}
+
+.axform-list-item.disabled {
+  color: #AEAEB2;
+  cursor: not-allowed;
+}
+
+/* Standalone list item */
+.axform-list-item-standalone {
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  color: #1D1D1F;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #E8E8EE;
+  background: white;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.axform-list-item-standalone:hover,
+.axform-list-item-standalone.hovered {
+  background-color: #F9F9FB;
+}
+
+/* ===================== */
+/*        Search         */
+/* ===================== */
+
+.axform-search {
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #FFFFFF;
+  border: 1px solid #DADAE0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: text;
+  transition: all 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.axform-search-icon {
+  color: #8E8E93;
+  flex-shrink: 0;
+}
+
+.axform-search.hovered,
+.axform-search:hover:not(.disabled) {
+  border-color: #C7C7CC;
+}
+
+.axform-search.focused {
+  border-color: #636366;
+  box-shadow: 0 0 0 2px rgba(99, 99, 102, 0.15); /* ring-2 ring-neutral-500/15 */
+}
+
+.axform-search.filled {
+  border-color: #DADAE0;
+}
+
+.axform-search.disabled {
+  background-color: #F9F9FB;
+  border-color: #E8E8EE;
+  cursor: not-allowed;
+}
+
+.axform-search.disabled .axform-search-icon,
+.axform-search.disabled .axform-select-placeholder {
+  color: #AEAEB2;
+}
+
+.axform-list-item-standalone.disabled {
+  color: #AEAEB2;
+  background-color: #F9F9FB;
+  cursor: not-allowed;
+}
