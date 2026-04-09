@@ -1,14 +1,16 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useBrandStore } from "@/store/brand-store";
 import { useCopy } from "@/hooks/useCopy";
 
-function buildBoxShadow(x: string, y: string, blur: string, color: string, opacity: string) {
-  const opacityNum = parseFloat(opacity) / 100;
+function buildBoxShadow(x: string, y: string, blur: string, color: string, opacity: string, isDark = false) {
+  let opacityNum = parseFloat(opacity) / 100;
   if (opacityNum === 0) return "none";
-  const r = parseInt(color.slice(1, 3), 16);
-  const g = parseInt(color.slice(3, 5), 16);
-  const b = parseInt(color.slice(5, 7), 16);
+  if (isDark) opacityNum = Math.min(opacityNum * 2.5, 0.8);
+  const r = isDark ? 0 : parseInt(color.slice(1, 3), 16);
+  const g = isDark ? 0 : parseInt(color.slice(3, 5), 16);
+  const b = isDark ? 0 : parseInt(color.slice(5, 7), 16);
   return `${x}px ${y}px ${blur}px rgba(${r}, ${g}, ${b}, ${opacityNum})`;
 }
 
@@ -26,6 +28,15 @@ export default function ElevationEditor({ brandId, search = "" }: { brandId: str
   const { brands } = useBrandStore();
   const brand = brands.find((b) => b.id === brandId);
   const { copiedId, copy } = useCopy();
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsDark(document.documentElement.classList.contains("dark"));
+    check();
+    const observer = new MutationObserver(check);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
 
   if (!brand) return null;
 
@@ -46,8 +57,9 @@ export default function ElevationEditor({ brandId, search = "" }: { brandId: str
 
       <div className="flex flex-col gap-4">
         {elevations.map((elev) => {
-          const shadow = buildBoxShadow(elev.x, elev.y, elev.blur, elev.color, elev.opacity);
+          const shadow = buildBoxShadow(elev.x, elev.y, elev.blur, elev.color, elev.opacity, isDark);
           const cssCode = buildCSS(elev);
+          const darkStroke = elev.stroke ? "#3A3A3C" : undefined;
 
           return (
             <div
@@ -56,10 +68,10 @@ export default function ElevationEditor({ brandId, search = "" }: { brandId: str
               onClick={() => copy(cssCode, elev.id)}
             >
               <div
-                className="shrink-0 w-28 h-28 rounded-xl bg-white"
+                className="shrink-0 w-28 h-28 rounded-xl bg-white dark:bg-zinc-800"
                 style={{
                   boxShadow: shadow !== "none" ? shadow : undefined,
-                  border: elev.stroke ? `1px solid ${elev.stroke}` : undefined,
+                  border: elev.stroke ? `1px solid ${isDark ? darkStroke : elev.stroke}` : undefined,
                   borderRadius: elev.borderRadius,
                 }}
               />

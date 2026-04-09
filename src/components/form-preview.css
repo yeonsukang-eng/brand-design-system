@@ -18,7 +18,7 @@
 }
 
 .axform-label-error {
-  color: #E64848;
+  color: #F04438;
 }
 
 .axform-label-disabled {
@@ -81,8 +81,8 @@
 
 .axform-input.error,
 .axform-textarea.error {
-  border-color: #E64848;
-  color: #E64848;
+  border-color: #F04438;
+  color: #F04438;
 }
 
 .axform-input.error:focus,
@@ -110,7 +110,7 @@
 }
 
 .axform-helper.error {
-  color: #E64848;
+  color: #F04438;
 }
 
 /* ===================== */
@@ -280,4 +280,180 @@
   color: #AEAEB2;
   background-color: #F9F9FB;
   cursor: not-allowed;
+}
+
+/* ===================== */
+/*       DARK MODE       */
+/* ===================== */
+
+.dark .axform-label {
+  color: #EDEDF3;
+}
+
+.dark .axform-label-error {
+  color: #F04438;
+}
+
+.dark .axform-label-disabled {
+  color: #636366;
+}
+
+.dark .axform-input,
+.dark .axform-textarea {
+  color: #EDEDF3;
+  background-color: #1D1D1F;
+  border-color: #48484A;
+}
+
+.dark .axform-input::placeholder,
+.dark .axform-textarea::placeholder {
+  color: #636366;
+}
+
+.dark .axform-input.normal,
+.dark .axform-textarea.normal {
+  border-color: #48484A;
+}
+
+.dark .axform-input.hovered,
+.dark .axform-textarea.hovered,
+.dark .axform-input:hover:not(:disabled):not(.error),
+.dark .axform-textarea:hover:not(:disabled):not(.error) {
+  border-color: #636366;
+}
+
+.dark .axform-input.focused,
+.dark .axform-textarea.focused,
+.dark .axform-input:focus:not(:disabled):not(.error),
+.dark .axform-textarea:focus:not(:disabled):not(.error) {
+  border-color: #AEAEB2;
+  box-shadow: 0 0 0 2px rgba(174, 174, 178, 0.15);
+}
+
+.dark .axform-input.filled,
+.dark .axform-textarea.filled {
+  border-color: #48484A;
+  color: #EDEDF3;
+}
+
+.dark .axform-input.error,
+.dark .axform-textarea.error {
+  border-color: #F04438;
+  color: #F04438;
+}
+
+.dark .axform-input.error:focus,
+.dark .axform-textarea.error:focus {
+  box-shadow: 0 0 0 2px rgba(240, 68, 56, 0.15);
+}
+
+.dark .axform-input.disabled,
+.dark .axform-textarea.disabled,
+.dark .axform-input:disabled,
+.dark .axform-textarea:disabled {
+  background-color: #1D1D1F;
+  border-color: #3A3A3C;
+  color: #636366;
+}
+
+.dark .axform-helper {
+  color: #636366;
+}
+
+.dark .axform-helper.error {
+  color: #F04438;
+}
+
+/* Dropdown dark */
+.dark .axform-select {
+  background-color: #1D1D1F;
+  border-color: #48484A;
+}
+
+.dark .axform-select-placeholder {
+  color: #636366;
+}
+
+.dark .axform-select-value {
+  color: #EDEDF3;
+}
+
+.dark .axform-select-icon {
+  color: #636366;
+}
+
+.dark .axform-select.hovered,
+.dark .axform-select:hover:not(.disabled) {
+  border-color: #636366;
+}
+
+.dark .axform-select.focused {
+  border-color: #AEAEB2;
+  box-shadow: 0 0 0 2px rgba(174, 174, 178, 0.15);
+}
+
+.dark .axform-select.disabled {
+  background-color: #1D1D1F;
+  border-color: #3A3A3C;
+  color: #636366;
+}
+
+.dark .axform-dropdown-list {
+  border-color: #3A3A3C;
+  background: #1D1D1F;
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.dark .axform-list-item {
+  color: #EDEDF3;
+}
+
+.dark .axform-list-item:hover,
+.dark .axform-list-item.hovered {
+  background-color: #3A3A3C;
+}
+
+.dark .axform-list-item.disabled {
+  color: #636366;
+}
+
+/* Search dark */
+.dark .axform-search {
+  background-color: #1D1D1F;
+  border-color: #48484A;
+}
+
+.dark .axform-search-icon {
+  color: #636366;
+}
+
+.dark .axform-search.hovered,
+.dark .axform-search:hover:not(.disabled) {
+  border-color: #636366;
+}
+
+.dark .axform-search.focused {
+  border-color: #AEAEB2;
+  box-shadow: 0 0 0 2px rgba(174, 174, 178, 0.15);
+}
+
+.dark .axform-search.disabled {
+  background-color: #1D1D1F;
+  border-color: #3A3A3C;
+}
+
+.dark .axform-list-item-standalone {
+  color: #EDEDF3;
+  border-color: #3A3A3C;
+  background: #1D1D1F;
+}
+
+.dark .axform-list-item-standalone:hover,
+.dark .axform-list-item-standalone.hovered {
+  background-color: #3A3A3C;
+}
+
+.dark .axform-list-item-standalone.disabled {
+  color: #636366;
+  background-color: #1D1D1F;
 }

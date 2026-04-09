@@ -1,20 +1,26 @@
 "use client";
 
-import { BookOpen, Layers } from "lucide-react";
+import { BookOpen, Layers, Sun, Moon } from "lucide-react";
 
 type View = "guide" | "system";
 
-export default function Sidebar({ activeView, onViewChange }: { activeView: View; onViewChange: (v: View) => void }) {
+export default function Sidebar({
+  activeView,
+  onViewChange,
+  dark,
+  onToggleDark,
+}: {
+  activeView: View;
+  onViewChange: (v: View) => void;
+  dark: boolean;
+  onToggleDark: () => void;
+}) {
   return (
     <div className="w-56 border-r border-zinc-200 bg-zinc-50 flex flex-col dark:border-zinc-800 dark:bg-zinc-950">
       {/* Logo */}
-      <div className="px-5 pt-5 pb-3">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-zinc-900 flex items-center justify-center dark:bg-zinc-100">
-            <span className="text-white text-sm font-bold dark:text-zinc-900" style={{ fontFamily: "Outfit, sans-serif" }}>ax</span>
-          </div>
-          <span className="text-lg font-bold tracking-tight" style={{ fontFamily: "Outfit, sans-serif" }}>ax flow</span>
-        </div>
+      <div className="px-5 pt-5 pb-6">
+        <img src="/logo-black.svg" alt="axflow" className="h-4 dark:hidden" />
+        <img src="/logo-white.svg" alt="axflow" className="h-4 hidden dark:block" />
       </div>
 
       {/* Navigation */}
@@ -45,6 +51,22 @@ export default function Sidebar({ activeView, onViewChange }: { activeView: View
 
       {/* Spacer */}
       <div className="flex-1" />
+
+      {/* Dark Mode Toggle */}
+      <div className="px-3 pb-4">
+        <button
+          onClick={onToggleDark}
+          className="flex items-center justify-between w-full px-3 py-2 rounded-lg text-sm text-zinc-500 hover:bg-zinc-200 dark:text-zinc-400 dark:hover:bg-zinc-800 transition-colors"
+        >
+          <span className="flex items-center gap-2">
+            {dark ? <Moon size={16} /> : <Sun size={16} />}
+            {dark ? "Dark" : "Light"}
+          </span>
+          <div className={`w-8 h-[18px] rounded-full relative transition-colors ${dark ? "bg-zinc-600" : "bg-zinc-300"}`}>
+            <div className={`absolute top-[2px] w-[14px] h-[14px] rounded-full bg-white shadow-sm transition-transform ${dark ? "left-[16px]" : "left-[2px]"}`} />
+          </div>
+        </button>
+      </div>
     </div>
   );
 }

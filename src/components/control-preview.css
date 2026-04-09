@@ -236,3 +236,142 @@
 .axctrl-toggle.on .axctrl-toggle-thumb {
   transform: translateX(20px);
 }
+
+/* ===================== */
+/*       DARK MODE       */
+/* ===================== */
+
+/* Segmented */
+.dark .axctrl-segmented {
+  background-color: #3A3A3C;
+}
+
+.dark .axctrl-segment {
+  color: #AEAEB2;
+}
+
+.dark .axctrl-segment.active {
+  background-color: #636366;
+  color: #FFFFFF;
+}
+
+.dark .axctrl-segment:hover:not(.active) {
+  color: #EDEDF3;
+}
+
+/* Tabs */
+.dark .axctrl-tabs {
+  border-bottom-color: #3A3A3C;
+}
+
+.dark .axctrl-tab {
+  color: #636366;
+}
+
+.dark .axctrl-tab.active {
+  color: #EDEDF3;
+  border-bottom-color: #EDEDF3;
+}
+
+.dark .axctrl-tab:hover:not(.active) {
+  color: #AEAEB2;
+}
+
+/* Chips */
+.dark .axctrl-chip {
+  color: #AEAEB2;
+  background-color: #1D1D1F;
+  border-color: #48484A;
+}
+
+.dark .axctrl-chip.selected {
+  background-color: #EDEDF3;
+  border-color: #EDEDF3;
+  color: #1D1D1F;
+}
+
+.dark .axctrl-chip:hover:not(.selected):not(.disabled) {
+  border-color: #636366;
+  background-color: #3A3A3C;
+}
+
+.dark .axctrl-chip.disabled {
+  color: #636366;
+  border-color: #3A3A3C;
+}
+
+/* Checkbox */
+.dark .axctrl-checkbox-wrap {
+  color: #EDEDF3;
+}
+
+.dark .axctrl-checkbox-wrap.disabled {
+  color: #636366;
+}
+
+.dark .axctrl-checkbox {
+  border-color: #48484A;
+}
+
+.dark .axctrl-checkbox.checked,
+.dark .axctrl-checkbox.indeterminate {
+  background-color: #EDEDF3;
+  border-color: #EDEDF3;
+}
+
+.dark .axctrl-checkbox.checked svg path,
+.dark .axctrl-checkbox.indeterminate svg path {
+  stroke: #1D1D1F;
+}
+
+.dark .axctrl-checkbox.disabled {
+  background-color: #3A3A3C;
+  border-color: #48484A;
+}
+
+.dark .axctrl-checkbox:hover:not(.checked):not(.indeterminate):not(.disabled) {
+  border-color: #636366;
+}
+
+/* Radio */
+.dark .axctrl-radio-wrap {
+  color: #EDEDF3;
+}
+
+.dark .axctrl-radio-wrap.disabled {
+  color: #636366;
+}
+
+.dark .axctrl-radio {
+  border-color: #48484A;
+}
+
+.dark .axctrl-radio.selected {
+  border-color: #EDEDF3;
+}
+
+.dark .axctrl-radio.disabled {
+  border-color: #48484A;
+  background-color: #3A3A3C;
+}
+
+.dark .axctrl-radio:hover:not(.selected):not(.disabled) {
+  border-color: #636366;
+}
+
+.dark .axctrl-radio-dot {
+  background-color: #EDEDF3;
+}
+
+/* Toggle */
+.dark .axctrl-toggle.on {
+  background-color: #EDEDF3;
+}
+
+.dark .axctrl-toggle.on .axctrl-toggle-thumb {
+  background-color: #1D1D1F;
+}
+
+.dark .axctrl-toggle.off {
+  background-color: #48484A;
+}

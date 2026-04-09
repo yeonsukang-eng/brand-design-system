@@ -93,11 +93,34 @@ function exportCSSVariables(brand: BrandSystem): string {
   return lines.join("\n");
 }
 
+const DARK_COLOR_MAP: Record<string, string> = {
+  "N900": "#EDEDF3",
+  "N800": "#DADAE0",
+  "N700": "#C7C7CC",
+  "N600": "#AEAEB2",
+  "N500": "#8E8E93",
+  "N400": "#636366",
+  "N300": "#48484A",
+  "N200": "#3A3A3C",
+  "N100": "#2C2C2E",
+  "N75": "#1D1D1F",
+  "N50": "#141414",
+  "N0": "#0A0A0A",
+};
+
 function exportJSON(brand: BrandSystem): string {
+  const lightColors = Object.fromEntries(brand.colors.map((c) => [c.name, { hex: c.hex, category: c.category }]));
+  const darkColors = Object.fromEntries(
+    brand.colors.map((c) => [c.name, { hex: DARK_COLOR_MAP[c.name] || c.hex, category: c.category }])
+  );
+
   return JSON.stringify(
     {
       name: brand.name,
-      colors: Object.fromEntries(brand.colors.map((c) => [c.name, { hex: c.hex, category: c.category }])),
+      colors: {
+        light: lightColors,
+        dark: darkColors,
+      },
       typography: Object.fromEntries(
         brand.typography.map((t) => [
           t.name,
@@ -118,18 +141,36 @@ function exportJSON(brand: BrandSystem): string {
 }
 
 function exportTailwind(brand: BrandSystem): string {
-  const config = {
-    theme: {
-      extend: {
-        colors: Object.fromEntries(brand.colors.map((c) => [toKebab(c.name), c.hex])),
-        spacing: Object.fromEntries(brand.spacing.map((s) => [toKebab(s.name), s.value])),
-        fontFamily: Object.fromEntries(
-          brand.typography.map((t) => [toKebab(t.name), [t.fontFamily]])
-        ),
-      },
-    },
-  };
-  return `// tailwind.config extension\n${JSON.stringify(config, null, 2)}`;
+  const lines: string[] = [
+    "/* axflow Design Tokens — Tailwind CSS */",
+    "",
+    "@theme {",
+    "  /* Colors — Light */",
+  ];
+
+  brand.colors.forEach((c) => {
+    lines.push(`  --color-ax-${toKebab(c.name)}: ${c.hex};`);
+  });
+
+  lines.push("");
+  lines.push("  /* Typography */");
+  brand.typography.forEach((t) => {
+    lines.push(`  --font-size-ax-${toKebab(t.name)}: ${t.fontSize};`);
+  });
+
+  lines.push("}");
+  lines.push("");
+  lines.push("/* Colors — Dark */");
+  lines.push(".dark {");
+
+  brand.colors.forEach((c) => {
+    const darkHex = DARK_COLOR_MAP[c.name] || c.hex;
+    lines.push(`  --color-ax-${toKebab(c.name)}: ${darkHex};`);
+  });
+
+  lines.push("}");
+
+  return lines.join("\n");
 }
 
 const EXPORTERS: Record<ExportFormat, (b: BrandSystem) => string> = {

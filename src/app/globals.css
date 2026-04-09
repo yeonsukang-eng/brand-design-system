@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FFFFFF;
+  --foreground: #1D1D1F;
 }
 
 @theme inline {
@@ -10,13 +12,29 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* axflow Neutral Scale */
+  --color-zinc-950: #141414;
+  --color-zinc-900: #1D1D1F;
+  --color-zinc-800: #3A3A3C;
+  --color-zinc-700: #48484A;
+  --color-zinc-600: #636366;
+  --color-zinc-500: #8E8E93;
+  --color-zinc-400: #AEAEB2;
+  --color-zinc-300: #C7C7CC;
+  --color-zinc-200: #DADAE0;
+  --color-zinc-100: #E8E8EE;
+  --color-zinc-75: #EDEDF3;
+  --color-zinc-50: #F9F9FB;
+
+  /* axflow Point Colors */
+  --color-point-green: #00E29E;
+  --color-point-violet: #6F36FF;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #141414;
+  --foreground: #EDEDF3;
 }
 
 body {

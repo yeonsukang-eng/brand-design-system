@@ -246,3 +246,89 @@
 .axbtn-icon.icon-solid:active:not(:disabled)::after {
   opacity: 0.12;
 }
+
+/* ===================== */
+/*       DARK MODE       */
+/* ===================== */
+
+.dark .axbtn::after,
+.dark .axbtn-icon::after {
+  background: #FFFFFF;
+}
+
+/* Disabled */
+.dark .axbtn.axbtn-disabled,
+.dark .axbtn-icon.axbtn-disabled {
+  background-color: #3A3A3C !important;
+  color: #636366 !important;
+}
+
+/* Solid/Primary — inverted */
+.dark .axbtn.solid-primary {
+  background-color: #EDEDF3;
+  color: #1D1D1F;
+}
+
+/* Outlined/Primary */
+.dark .axbtn.outlined-primary {
+  color: #C7C7CC;
+  border-color: #636366;
+}
+.dark .axbtn.outlined-primary:hover:not(:disabled) {
+  background-color: #3A3A3C;
+}
+
+/* Outlined/Secondary */
+.dark .axbtn.outlined-secondary {
+  color: #EDEDF3;
+  border-color: #48484A;
+}
+.dark .axbtn.outlined-secondary:hover:not(:disabled) {
+  background-color: #3A3A3C;
+}
+
+/* Outlined/Assistive */
+.dark .axbtn.outlined-assistive {
+  color: #EDEDF3;
+  border-color: #3A3A3C;
+}
+.dark .axbtn.outlined-assistive:hover:not(:disabled) {
+  background-color: #3A3A3C;
+}
+
+/* Text button */
+.dark .axbtn.text-btn {
+  color: #AEAEB2;
+}
+.dark .axbtn.text-btn:hover:not(:disabled) {
+  background-color: #3A3A3C;
+}
+
+/* Icon/Normal */
+.dark .axbtn-icon.icon-normal {
+  color: #EDEDF3;
+}
+.dark .axbtn-icon.icon-normal:hover:not(:disabled) {
+  background-color: #3A3A3C;
+}
+
+/* Icon/Background */
+.dark .axbtn-icon.icon-background {
+  background-color: #3A3A3C;
+  color: #AEAEB2;
+}
+
+/* Icon/Outlined */
+.dark .axbtn-icon.icon-outlined {
+  color: #EDEDF3;
+  border-color: #48484A;
+}
+.dark .axbtn-icon.icon-outlined:hover:not(:disabled) {
+  background-color: #3A3A3C;
+}
+
+/* Icon/Solid — inverted */
+.dark .axbtn-icon.icon-solid {
+  background-color: #EDEDF3;
+  color: #1D1D1F;
+}
