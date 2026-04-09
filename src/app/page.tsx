@@ -7,7 +7,7 @@ import DesignGuide from "@/components/DesignGuide";
 import { LocaleProvider, useLocale } from "@/contexts/locale";
 
 function HomeContent() {
-  const [view, setView] = useState<"guide" | "system">("system");
+  const [view, setView] = useState<"guide" | "system">("guide");
   const [dark, setDark] = useState(false);
   const { locale, setLocale, t } = useLocale();
 
