@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { useBrandStore } from "@/store/brand-store";
 import { useCopy } from "@/hooks/useCopy";
+import { useLocale } from "@/contexts/locale";
 
 export default function TypographyEditor({ brandId, search = "" }: { brandId: string; search?: string }) {
   const { brands, addTypography, deleteTypography } = useBrandStore();
+  const { t } = useLocale();
   const brand = brands.find((b) => b.id === brandId);
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState("");
@@ -100,8 +102,8 @@ export default function TypographyEditor({ brandId, search = "" }: { brandId: st
       )}
 
       <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200 text-xs text-zinc-500 mb-4 flex gap-4 dark:bg-zinc-900 dark:border-zinc-700">
-        <span><strong className="text-zinc-700 dark:text-zinc-300">Pretendard</strong> — UI 전체 (Headline, Title, Label, Body)</span>
-        <span><strong className="text-zinc-700 dark:text-zinc-300">Outfit</strong> — 브랜딩 전용 (로고, 슬로건)</span>
+        <span><strong className="text-zinc-700 dark:text-zinc-300">Pretendard</strong> — {t("UI 전체 (Headline, Title, Label, Body)", "All UI (Headline, Title, Label, Body)")}</span>
+        <span><strong className="text-zinc-700 dark:text-zinc-300">Outfit</strong> — {t("브랜딩 전용 (로고, 슬로건)", "Branding only (Logo, Slogan)")}</span>
       </div>
 
       {brand.typography.length === 0 && !showForm && (

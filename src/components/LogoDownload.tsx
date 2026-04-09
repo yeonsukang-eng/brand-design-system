@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback } from "react";
+import { useLocale } from "@/contexts/locale";
 
 function downloadFile(path: string, filename: string) {
   const link = document.createElement("a");
@@ -68,6 +69,7 @@ const VARIANTS: LogoVariant[] = [
 ];
 
 export default function LogoDownload() {
+  const { t } = useLocale();
   const handleDownload = useCallback((format: "svg" | "png", variant: LogoVariant) => {
     if (format === "svg") {
       downloadFile(variant.svgPath, `${variant.filePrefix}.svg`);
@@ -81,7 +83,7 @@ export default function LogoDownload() {
       <h5 className="text-xs font-medium text-zinc-500 uppercase mb-3">Logo Download</h5>
 
       {/* Gradient versions */}
-      <p className="text-[11px] text-zinc-400 mb-2">Gradient (기본)</p>
+      <p className="text-[11px] text-zinc-400 mb-2">{t("Gradient (기본)", "Gradient (Default)")}</p>
       <div className="grid grid-cols-2 gap-4 mb-5">
         {VARIANTS.slice(0, 2).map((v) => (
           <div key={v.label} className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-700">
@@ -97,7 +99,7 @@ export default function LogoDownload() {
                   className="flex flex-col items-center gap-0.5 px-2 py-2 rounded-lg text-[11px] border border-zinc-200 hover:bg-zinc-100 transition-colors dark:border-zinc-700 dark:hover:bg-zinc-800"
                 >
                   <span className="font-medium">{f.toUpperCase()}</span>
-                  <span className="text-[9px] text-zinc-400">{f === "svg" ? "벡터 원본" : "4x 고해상도"}</span>
+                  <span className="text-[9px] text-zinc-400">{f === "svg" ? t("벡터 원본", "Vector") : t("4x 고해상도", "4x Hi-Res")}</span>
                 </button>
               ))}
             </div>
@@ -106,7 +108,7 @@ export default function LogoDownload() {
       </div>
 
       {/* Solid versions */}
-      <p className="text-[11px] text-zinc-400 mb-2">Solid (단색)</p>
+      <p className="text-[11px] text-zinc-400 mb-2">{t("Solid (단색)", "Solid (Monochrome)")}</p>
       <div className="grid grid-cols-2 gap-4">
         {VARIANTS.slice(2).map((v) => (
           <div key={v.label} className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-700">
@@ -122,7 +124,7 @@ export default function LogoDownload() {
                   className="flex flex-col items-center gap-0.5 px-2 py-2 rounded-lg text-[11px] border border-zinc-200 hover:bg-zinc-100 transition-colors dark:border-zinc-700 dark:hover:bg-zinc-800"
                 >
                   <span className="font-medium">{f.toUpperCase()}</span>
-                  <span className="text-[9px] text-zinc-400">{f === "svg" ? "벡터 원본" : "4x 고해상도"}</span>
+                  <span className="text-[9px] text-zinc-400">{f === "svg" ? t("벡터 원본", "Vector") : t("4x 고해상도", "4x Hi-Res")}</span>
                 </button>
               ))}
             </div>

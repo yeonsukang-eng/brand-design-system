@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { BrandSystem } from "@/types/brand";
+import { useLocale } from "@/contexts/locale";
 
 type ExportFormat = "json" | "tailwind";
 
@@ -183,6 +184,7 @@ const FORMAT_ORDER: ExportFormat[] = ["json", "tailwind"];
 export default function ExportPanel({ brand }: { brand: BrandSystem }) {
   const [format, setFormat] = useState<ExportFormat>("json");
   const [copied, setCopied] = useState(false);
+  const { t } = useLocale();
 
   const output = EXPORTERS[format](brand);
 

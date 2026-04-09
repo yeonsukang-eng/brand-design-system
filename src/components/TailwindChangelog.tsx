@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale } from "@/contexts/locale";
 
 interface Change {
   component: string;
@@ -39,6 +40,7 @@ const CHANGES: Record<string, Change[]> = {
 export function TailwindChangelog({ tab }: { tab: string }) {
   const changes = CHANGES[tab];
   const [open, setOpen] = useState(false);
+  const { t } = useLocale();
 
   if (!changes || changes.length === 0) return null;
 
@@ -48,8 +50,8 @@ export function TailwindChangelog({ tab }: { tab: string }) {
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-blue-700 dark:text-blue-400"
       >
-        <span>Tailwind 표준 적용 변경사항 ({changes.length}건)</span>
-        <span className="text-xs">{open ? "접기" : "펼치기"}</span>
+        <span>{t(`Tailwind 표준 적용 변경사항 (${changes.length}건)`, `Tailwind Standard Changes (${changes.length})`)}</span>
+        <span className="text-xs">{open ? t("접기", "Collapse") : t("펼치기", "Expand")}</span>
       </button>
       {open && (
         <div className="px-4 pb-4">

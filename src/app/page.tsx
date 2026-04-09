@@ -4,10 +4,12 @@ import { useState, useEffect, useCallback } from "react";
 import Sidebar from "@/components/Sidebar";
 import BrandEditor from "@/components/BrandEditor";
 import DesignGuide from "@/components/DesignGuide";
+import { LocaleProvider, useLocale } from "@/contexts/locale";
 
-export default function Home() {
+function HomeContent() {
   const [view, setView] = useState<"guide" | "system">("system");
   const [dark, setDark] = useState(false);
+  const { locale, setLocale, t } = useLocale();
 
   useEffect(() => {
     const saved = localStorage.getItem("axflow-dark-mode");
@@ -26,9 +28,20 @@ export default function Home() {
     });
   }, []);
 
+  const toggleLocale = useCallback(() => {
+    setLocale(locale === "ko" ? "en" : "ko");
+  }, [locale, setLocale]);
+
   return (
     <div className="flex h-screen">
-      <Sidebar activeView={view} onViewChange={setView} dark={dark} onToggleDark={toggleDark} />
+      <Sidebar
+        activeView={view}
+        onViewChange={setView}
+        dark={dark}
+        onToggleDark={toggleDark}
+        locale={locale}
+        onToggleLocale={toggleLocale}
+      />
       {view === "system" ? (
         <BrandEditor />
       ) : (
@@ -36,7 +49,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto w-full px-8 pt-8 pb-0">
             <div className="mb-8">
               <h1 className="text-2xl font-bold">ax flow</h1>
-              <p className="text-sm text-zinc-500 mt-1">Brand Guide</p>
+              <p className="text-sm text-zinc-500 mt-1">{t("브랜드 가이드", "Brand Guide")}</p>
             </div>
           </div>
           <div className="flex-1 overflow-y-auto">
@@ -47,5 +60,13 @@ export default function Home() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <LocaleProvider>
+      <HomeContent />
+    </LocaleProvider>
   );
 }
