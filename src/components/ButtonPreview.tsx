@@ -1,6 +1,7 @@
 "use client";
 
 import { Star } from "lucide-react";
+import { useLocale } from "@/contexts/locale";
 import "./button-preview.css";
 
 const SIZES = ["large", "medium", "small"] as const;
@@ -45,6 +46,7 @@ function IconBtn({ size, variant, disabled }: {
 }
 
 export function ButtonPreview({ componentName }: { componentName: string }) {
+  const { t } = useLocale();
   const isIcon = componentName.startsWith("Icon/");
 
   const variantMap: Record<string, string> = {
@@ -68,14 +70,14 @@ export function ButtonPreview({ componentName }: { componentName: string }) {
         isIcon ? (
           <IconBtn key={size} size={size} variant={variant} />
         ) : (
-          <BaseButton key={size} label="Button" size={size} variant={variant} />
+          <BaseButton key={size} label={t("버튼", "Button")} size={size} variant={variant} />
         )
       )}
       <div className="w-px h-8 bg-zinc-200 dark:bg-zinc-700 mx-1" />
       {isIcon ? (
         <IconBtn size="large" variant={variant} disabled />
       ) : (
-        <BaseButton label="Disabled" size="large" variant={variant} disabled />
+        <BaseButton label={t("비활성화", "Disabled")} size="large" variant={variant} disabled />
       )}
     </div>
   );

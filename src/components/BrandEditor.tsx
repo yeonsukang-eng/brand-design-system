@@ -39,12 +39,12 @@ export default function BrandEditor() {
   }
 
   const tabs: { key: Tab; label: string }[] = [
-    { key: "colors", label: "Colors" },
-    { key: "typography", label: "Typography" },
-{ key: "icons", label: "Icons" },
-    { key: "elevations", label: "Elevation" },
-    { key: "components", label: "Components" },
-{ key: "export", label: "Export" },
+    { key: "colors", label: t("컬러", "Colors") },
+    { key: "typography", label: t("타이포그래피", "Typography") },
+    { key: "icons", label: t("아이콘", "Icons") },
+    { key: "elevations", label: t("엘리베이션", "Elevation") },
+    { key: "components", label: t("컴포넌트", "Components") },
+    { key: "export", label: t("내보내기", "Export") },
   ];
 
   return (

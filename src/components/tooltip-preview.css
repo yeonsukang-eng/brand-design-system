@@ -1,0 +1,105 @@
+/* ===================== */
+/*   axflow Tooltip       */
+/* ===================== */
+
+.ax-tooltip-wrapper {
+  display: inline-flex;
+  align-items: center;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.ax-tooltip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 6px 10px;
+  background-color: #636366;
+  border-radius: 8px;
+  position: relative;
+}
+
+.ax-tooltip-text {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+
+/* 화살표 — 오른쪽 */
+.ax-tooltip-arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 6px solid #636366;
+  flex-shrink: 0;
+}
+
+/* 화살표 — 왼쪽 */
+.ax-tooltip-arrow-left {
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 6px solid #636366;
+  flex-shrink: 0;
+}
+
+/* 화살표 — 아래쪽 */
+.ax-tooltip-wrapper.ax-tooltip-bottom {
+  flex-direction: column;
+  align-items: center;
+}
+
+.ax-tooltip-arrow-bottom {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #636366;
+  flex-shrink: 0;
+}
+
+/* 화살표 — 위쪽 (화살표가 위를 가리키며 본체 위에 위치) */
+.ax-tooltip-wrapper.ax-tooltip-top {
+  flex-direction: column;
+  align-items: center;
+}
+
+.ax-tooltip-arrow-top {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 6px solid #636366;
+  flex-shrink: 0;
+}
+
+/* ===================== */
+/*       DARK MODE       */
+/* ===================== */
+
+.dark .ax-tooltip {
+  background-color: #AEAEB2;
+}
+
+.dark .ax-tooltip-text {
+  color: #1D1D1F;
+}
+
+.dark .ax-tooltip-arrow-right {
+  border-left-color: #AEAEB2;
+}
+
+.dark .ax-tooltip-arrow-left {
+  border-right-color: #AEAEB2;
+}
+
+.dark .ax-tooltip-arrow-bottom {
+  border-top-color: #AEAEB2;
+}
+
+.dark .ax-tooltip-arrow-top {
+  border-bottom-color: #AEAEB2;
+}

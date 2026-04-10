@@ -1,0 +1,164 @@
+/* ===================== */
+/*   axflow Toast        */
+/* ===================== */
+
+.ax-toast-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 320px;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* "전체 삭제하기" 버튼 — 3개 이상일 때 노출 */
+.ax-toast-clear-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 20px;
+  background-color: #EDEDF3;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #48484A;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.ax-toast-clear-all::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #1D1D1F;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.ax-toast-clear-all:hover::after {
+  opacity: 0.05;
+}
+
+.ax-toast-clear-all:active::after {
+  opacity: 0.12;
+}
+
+/* 개별 Toast 카드 */
+.ax-toast-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  padding: 8px 16px;
+  background-color: #FFFFFF;
+  border: 1px solid #EDEDF3;
+  border-radius: 16px;
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.06);
+  position: relative;
+}
+
+.ax-toast-card:hover .ax-toast-delete {
+  opacity: 1;
+}
+
+.ax-toast-message {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #48484A;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ax-toast-time {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #8E8E93;
+  white-space: nowrap;
+  margin-left: 8px;
+}
+
+/* 개별 삭제 버튼 — hover 시 노출 */
+.ax-toast-delete {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #AEAEB2;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  padding: 0;
+}
+
+.ax-toast-delete::before,
+.ax-toast-delete::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 1.5px;
+  background-color: #FFFFFF;
+  border-radius: 1px;
+}
+
+.ax-toast-delete::before {
+  transform: rotate(45deg);
+}
+
+.ax-toast-delete::after {
+  transform: rotate(-45deg);
+}
+
+.ax-toast-delete:hover {
+  background-color: #8E8E93;
+}
+
+/* ===================== */
+/*       DARK MODE       */
+/* ===================== */
+
+.dark .ax-toast-clear-all {
+  background-color: #3A3A3C;
+  color: #C7C7CC;
+}
+
+.dark .ax-toast-clear-all::after {
+  background: #FFFFFF;
+}
+
+.dark .ax-toast-card {
+  background-color: #1D1D1F;
+  border-color: #3A3A3C;
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.2);
+}
+
+.dark .ax-toast-message {
+  color: #C7C7CC;
+}
+
+.dark .ax-toast-time {
+  color: #8E8E93;
+}
+
+.dark .ax-toast-delete {
+  background-color: #636366;
+}
+
+.dark .ax-toast-delete:hover {
+  background-color: #8E8E93;
+}

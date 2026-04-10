@@ -19,6 +19,8 @@ export default function Sidebar({
   locale: "ko" | "en";
   onToggleLocale: () => void;
 }) {
+  const t = <T,>(ko: T, en: T): T => (locale === "en" ? en : ko);
+
   return (
     <div className="w-56 border-r border-zinc-200 bg-zinc-50 flex flex-col dark:border-zinc-800 dark:bg-zinc-950">
       {/* Logo */}
@@ -38,7 +40,7 @@ export default function Sidebar({
           }`}
         >
           <BookOpen size={18} />
-          Design Guide
+          {t("디자인 가이드", "Design Guide")}
         </button>
         <button
           onClick={() => onViewChange("system")}
@@ -49,7 +51,7 @@ export default function Sidebar({
           }`}
         >
           <Layers size={18} />
-          Design System
+          {t("디자인 시스템", "Design System")}
         </button>
       </div>
 
@@ -64,7 +66,7 @@ export default function Sidebar({
         >
           <span className="flex items-center gap-2">
             <Globe size={16} />
-            {locale === "ko" ? "KO" : "EN"}
+            {locale === "ko" ? "한국어" : "English"}
           </span>
           <div className={`w-8 h-[18px] rounded-full relative transition-colors ${locale === "en" ? "bg-zinc-600" : "bg-zinc-300"}`}>
             <div className={`absolute top-[2px] w-[14px] h-[14px] rounded-full bg-white shadow-sm transition-transform ${locale === "en" ? "left-[16px]" : "left-[2px]"}`} />
@@ -76,7 +78,7 @@ export default function Sidebar({
         >
           <span className="flex items-center gap-2">
             {dark ? <Moon size={16} /> : <Sun size={16} />}
-            {dark ? "Dark" : "Light"}
+            {dark ? t("다크 모드", "Dark") : t("라이트 모드", "Light")}
           </span>
           <div className={`w-8 h-[18px] rounded-full relative transition-colors ${dark ? "bg-zinc-600" : "bg-zinc-300"}`}>
             <div className={`absolute top-[2px] w-[14px] h-[14px] rounded-full bg-white shadow-sm transition-transform ${dark ? "left-[16px]" : "left-[2px]"}`} />

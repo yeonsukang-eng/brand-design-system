@@ -209,7 +209,7 @@ export const useBrandStore = create<BrandStore>()(
     }),
     {
       name: "brand-design-system",
-      version: 26,
+      version: 27,
       migrate: () => ({
         brands: [axflowBrand],
         activeBrandId: "axflow",
