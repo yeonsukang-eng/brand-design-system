@@ -26,10 +26,11 @@ function MenuPreview({ size }: { size: "medium" | "large" }) {
   );
 }
 
-export function NavPreview({ componentName }: { componentName: string }) {
+export function NavPreview({ componentName, brandId }: { componentName: string; brandId?: string }) {
+  const isSpire = brandId === "spire";
   if (componentName === "Menu") {
     return (
-      <div className="flex flex-wrap gap-6 mt-3 p-4 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 items-start">
+      <div className={`${isSpire ? "spire-preview bg-[#242424]" : "bg-zinc-50 dark:bg-zinc-800/50"} flex flex-wrap gap-6 mt-3 p-4 rounded-lg items-start`}>
         <MenuPreview size="medium" />
         <MenuPreview size="large" />
       </div>

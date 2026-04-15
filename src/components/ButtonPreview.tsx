@@ -45,12 +45,13 @@ function IconBtn({ size, variant, disabled }: {
   );
 }
 
-export function ButtonPreview({ componentName }: { componentName: string }) {
+export function ButtonPreview({ componentName, brandId }: { componentName: string; brandId?: string }) {
   const { t } = useLocale();
   const isIcon = componentName.startsWith("Icon/");
 
   const variantMap: Record<string, string> = {
     "Solid/Primary": "solid-primary",
+    "Solid/Secondary": "solid-secondary",
     "Outlined/Primary": "outlined-primary",
     "Outlined/Secondary": "outlined-secondary",
     "Outlined/Assistive": "outlined-assistive",
@@ -64,8 +65,11 @@ export function ButtonPreview({ componentName }: { componentName: string }) {
   const variant = variantMap[componentName];
   if (!variant) return null;
 
+  const brandClass = brandId === "spire" ? "spire-preview" : "";
+  const wrapperBg = brandId === "spire" ? "bg-[#242424]" : "bg-zinc-50 dark:bg-zinc-800/50";
+
   return (
-    <div className="flex items-center gap-3 mt-3 p-4 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 flex-wrap">
+    <div className={`${brandClass} flex items-center gap-3 mt-3 p-4 rounded-lg ${wrapperBg} flex-wrap`}>
       {SIZES.map((size) =>
         isIcon ? (
           <IconBtn key={size} size={size} variant={variant} />

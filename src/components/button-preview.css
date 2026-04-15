@@ -332,3 +332,137 @@
   background-color: #EDEDF3;
   color: #1D1D1F;
 }
+
+/* ===================================== */
+/*  SPIRE BRAND OVERRIDES (Figma 1:1)    */
+/*  Source: Figma node 29:242            */
+/*  Tokens:                              */
+/*   accent-point  #FF5F2C               */
+/*   accent-hover  #FF7A4D               */
+/*   accent-press  #CC4A20               */
+/*   bg-subtle     #494949               */
+/*   border-default#8E8E93               */
+/*   text-primary  #F3F3F3               */
+/*   text-muted    #DADADA               */
+/* ===================================== */
+
+.spire-preview .axbtn,
+.spire-preview .axbtn-icon {
+  font-family: "Pretendard", -apple-system, sans-serif;
+  font-weight: 500;
+  height: auto;
+}
+
+/* sizes (Figma: L → btn-lg / M → btn-md / S → btn-sm) */
+.spire-preview .axbtn.btn-lg { padding: 12px 20px; font-size: 16px; line-height: 1.5; border-radius: 12px; height: auto; }
+.spire-preview .axbtn.btn-md { padding: 8px 16px; font-size: 14px; line-height: 1.5; border-radius: 6px; height: auto; }
+.spire-preview .axbtn.btn-sm { padding: 8px 12px; font-size: 12px; line-height: 1.5; border-radius: 6px; height: auto; }
+
+.spire-preview .axbtn-icon.btn-lg { width: 44px; height: 44px; border-radius: 12px; }
+.spire-preview .axbtn-icon.btn-md { width: 36px; height: 36px; border-radius: 6px; }
+.spire-preview .axbtn-icon.btn-sm { width: 32px; height: 32px; border-radius: 6px; }
+
+/* overlay disabled in spire (use solid colors per Figma) */
+.spire-preview .axbtn::after,
+.spire-preview .axbtn-icon::after { display: none; }
+
+/* Solid/Primary */
+.spire-preview .axbtn.solid-primary {
+  background-color: #FF5F2C; color: #FFFFFF; border: none;
+}
+.spire-preview .axbtn.solid-primary:hover:not(:disabled) { background-color: #FF7A4D; }
+.spire-preview .axbtn.solid-primary:active:not(:disabled) { background-color: #CC4A20; }
+.spire-preview .axbtn.solid-primary:focus-visible:not(:disabled) {
+  background-color: #FF5F2C; outline: 2px solid #FF5F2C; outline-offset: 0;
+}
+
+/* Solid/Secondary */
+.spire-preview .axbtn.solid-secondary {
+  background-color: #494949; color: #F3F3F3; border: none;
+}
+.spire-preview .axbtn.solid-secondary:hover:not(:disabled) { background-color: #494949; }
+.spire-preview .axbtn.solid-secondary:active:not(:disabled) { background-color: #8E8E93; }
+.spire-preview .axbtn.solid-secondary:focus-visible:not(:disabled) {
+  outline: 2px solid #FF5F2C; outline-offset: 0;
+}
+
+/* Outlined/Primary */
+.spire-preview .axbtn.outlined-primary {
+  background: transparent; color: #FF5F2C; border: 1px solid #FF5F2C;
+}
+.spire-preview .axbtn.outlined-primary:hover:not(:disabled) { background-color: #494949; }
+.spire-preview .axbtn.outlined-primary:active:not(:disabled) { background-color: #8E8E93; }
+.spire-preview .axbtn.outlined-primary:focus-visible:not(:disabled) {
+  border-width: 2px;
+}
+
+/* Outlined/Secondary */
+.spire-preview .axbtn.outlined-secondary {
+  background: transparent; color: #F3F3F3; border: 1px solid #8E8E93;
+}
+.spire-preview .axbtn.outlined-secondary:hover:not(:disabled) { background-color: #494949; }
+.spire-preview .axbtn.outlined-secondary:active:not(:disabled) { background-color: #8E8E93; }
+.spire-preview .axbtn.outlined-secondary:focus-visible:not(:disabled) {
+  border-color: #FF5F2C; border-width: 2px;
+}
+
+/* Outlined/Assistive */
+.spire-preview .axbtn.outlined-assistive {
+  background: transparent; color: #DADADA; border: 1px solid #8E8E93;
+}
+.spire-preview .axbtn.outlined-assistive:hover:not(:disabled) { background-color: #494949; }
+.spire-preview .axbtn.outlined-assistive:active:not(:disabled) { background-color: #8E8E93; }
+.spire-preview .axbtn.outlined-assistive:focus-visible:not(:disabled) {
+  border-color: #FF5F2C; border-width: 2px;
+}
+
+/* Text button */
+.spire-preview .axbtn.text-btn {
+  background: transparent; color: #FF5F2C; border: none; padding-left: inherit; padding-right: inherit;
+}
+.spire-preview .axbtn.text-btn:hover:not(:disabled) { background-color: #494949; }
+.spire-preview .axbtn.text-btn:active:not(:disabled) { background-color: #8E8E93; }
+.spire-preview .axbtn.text-btn:focus-visible:not(:disabled) {
+  outline: 2px solid #FF5F2C;
+}
+
+/* Disabled — applies to all variants */
+.spire-preview .axbtn.axbtn-disabled,
+.spire-preview .axbtn-icon.axbtn-disabled {
+  background-color: #494949 !important;
+  color: #DADADA !important;
+  border-color: #494949 !important;
+}
+.spire-preview .axbtn.outlined-primary.axbtn-disabled,
+.spire-preview .axbtn.outlined-secondary.axbtn-disabled,
+.spire-preview .axbtn.outlined-assistive.axbtn-disabled {
+  background-color: transparent !important;
+  border: 1px solid #494949 !important;
+}
+.spire-preview .axbtn.text-btn.axbtn-disabled {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+/* Icon variants — Spire */
+.spire-preview .axbtn-icon.icon-normal {
+  background: transparent; color: #F3F3F3; border: none;
+}
+.spire-preview .axbtn-icon.icon-normal:hover:not(:disabled) { background-color: #494949; }
+.spire-preview .axbtn-icon.icon-normal:active:not(:disabled) { background-color: #8E8E93; }
+
+.spire-preview .axbtn-icon.icon-background {
+  background-color: #494949; color: #F3F3F3; border: none;
+}
+.spire-preview .axbtn-icon.icon-background:hover:not(:disabled) { background-color: #8E8E93; }
+
+.spire-preview .axbtn-icon.icon-outlined {
+  background: transparent; color: #F3F3F3; border: 1px solid #8E8E93;
+}
+.spire-preview .axbtn-icon.icon-outlined:hover:not(:disabled) { background-color: #494949; }
+
+.spire-preview .axbtn-icon.icon-solid {
+  background-color: #FF5F2C; color: #FFFFFF; border: none;
+}
+.spire-preview .axbtn-icon.icon-solid:hover:not(:disabled) { background-color: #FF7A4D; }
+.spire-preview .axbtn-icon.icon-solid:active:not(:disabled) { background-color: #CC4A20; }

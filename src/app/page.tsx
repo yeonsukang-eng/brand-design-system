@@ -5,11 +5,13 @@ import Sidebar from "@/components/Sidebar";
 import BrandEditor from "@/components/BrandEditor";
 import DesignGuide from "@/components/DesignGuide";
 import { LocaleProvider, useLocale } from "@/contexts/locale";
+import { useBrandStore } from "@/store/brand-store";
 
 function HomeContent() {
   const [view, setView] = useState<"guide" | "system">("guide");
   const [dark, setDark] = useState(false);
   const { locale, setLocale, t } = useLocale();
+  const activeBrand = useBrandStore((s) => s.brands.find((b) => b.id === s.activeBrandId));
 
   useEffect(() => {
     const saved = localStorage.getItem("axflow-dark-mode");
@@ -18,6 +20,19 @@ function HomeContent() {
       document.documentElement.classList.add("dark");
     }
   }, []);
+
+  // spire defaults to dark mode; axflow uses user preference.
+  useEffect(() => {
+    if (!activeBrand) return;
+    if (activeBrand.id === "spire") {
+      setDark(true);
+      document.documentElement.classList.add("dark");
+    } else if (activeBrand.id === "axflow") {
+      const saved = localStorage.getItem("axflow-dark-mode") === "true";
+      setDark(saved);
+      document.documentElement.classList.toggle("dark", saved);
+    }
+  }, [activeBrand?.id]);
 
   const toggleDark = useCallback(() => {
     setDark((prev) => {
@@ -48,7 +63,7 @@ function HomeContent() {
         <div className="flex-1 flex flex-col overflow-hidden">
           <div className="max-w-4xl mx-auto w-full px-8 pt-8 pb-0">
             <div className="mb-8">
-              <h1 className="text-2xl font-bold">ax flow</h1>
+              <h1 className="text-2xl font-bold">{activeBrand?.name ?? "—"}</h1>
               <p className="text-sm text-zinc-500 mt-1">{t("브랜드 가이드", "Brand Guide")}</p>
             </div>
           </div>

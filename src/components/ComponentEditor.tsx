@@ -74,9 +74,10 @@ export default function ComponentEditor({ brandId, search = "" }: { brandId: str
   );
   const allCategories = [...new Set(components.map((c) => c.category))];
 
+  const spireExcluded = brandId === "spire" ? components.filter((c) => c.name !== "Tooltip") : components;
   const filtered = activeCategory
-    ? components.filter((c) => c.category === activeCategory)
-    : components;
+    ? spireExcluded.filter((c) => c.category === activeCategory)
+    : spireExcluded;
 
   const visibleCategories = [...new Set(filtered.map((c) => c.category))];
   const grouped = visibleCategories.map((cat) => ({
@@ -189,7 +190,7 @@ export default function ComponentEditor({ brandId, search = "" }: { brandId: str
 
       {grouped.map((group) => (
         <div key={group.category} className="mb-8">
-          {!activeCategory && (
+          {!activeCategory && group.category !== "feedback" && (
             <h4 className="text-sm font-medium text-zinc-500 uppercase tracking-wider mb-3">
               {group.category}
             </h4>
@@ -206,25 +207,25 @@ export default function ComponentEditor({ brandId, search = "" }: { brandId: str
                     <p className="text-sm text-zinc-500 mt-1">{getDescription(comp)}</p>
                   )}
                   {comp.category === "button" && (
-                    <ButtonPreview componentName={comp.name} />
+                    <ButtonPreview componentName={comp.name} brandId={brandId} />
                   )}
                   {comp.category === "form" && (
-                    <FormPreview componentName={comp.name} />
+                    <FormPreview componentName={comp.name} brandId={brandId} />
                   )}
                   {comp.category === "dropdown" && (
-                    <FormPreview componentName={comp.name} />
+                    <FormPreview componentName={comp.name} brandId={brandId} />
                   )}
                   {comp.category === "search" && (
-                    <FormPreview componentName={comp.name} />
+                    <FormPreview componentName={comp.name} brandId={brandId} />
                   )}
                   {comp.category === "navigation" && (
-                    <NavPreview componentName={comp.name} />
+                    <NavPreview componentName={comp.name} brandId={brandId} />
                   )}
                   {comp.category === "control" && (
-                    <ControlPreview componentName={comp.name} />
+                    <ControlPreview componentName={comp.name} brandId={brandId} />
                   )}
                   {comp.category === "feedback" && comp.name === "Toast" && (
-                    <ToastPreview />
+                    <ToastPreview brandId={brandId} />
                   )}
                   {comp.category === "feedback" && comp.name === "Tooltip" && (
                     <TooltipPreview />

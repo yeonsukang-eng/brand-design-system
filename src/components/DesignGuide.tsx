@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import LogoDownload from "./LogoDownload";
 import { useLocale } from "@/contexts/locale";
+import { useBrandStore } from "@/store/brand-store";
 
 interface GuideSection {
   id: string;
@@ -14,6 +15,7 @@ interface GuideSection {
 export default function DesignGuide() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const { t } = useLocale();
+  const activeBrandId = useBrandStore((s) => s.activeBrandId);
 
   const SECTIONS: GuideSection[] = useMemo(() => [
     {
@@ -406,44 +408,6 @@ export default function DesignGuide() {
             </div>
           </div>
 
-          {/* Design System — Data Visualization (hidden) */}
-          <div className="hidden">
-            <h5 className="text-xs font-medium text-zinc-500 uppercase mb-2">Design System — Data Visualization</h5>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">{t("차트, 그래프 등 데이터 시각화에 사용되는 컬러. 대시보드 내 시리즈 구분에 순서대로 적용합니다.", "Colors used for data visualization such as charts and graphs. Applied in order to distinguish series within dashboards.")}</p>
-            <div className="flex gap-2 mb-4">
-              {[
-                { name: "Indigo", hex: "#444CE7" },
-                { name: "Violet", hex: "#7A5AF8" },
-                { name: "Teal", hex: "#15B79E" },
-                { name: "Orange", hex: "#EF6820" },
-                { name: "Pink", hex: "#EE46BC" },
-                { name: "Sky", hex: "#36BFFA" },
-              ].map((c) => (
-                <div key={c.name} className="flex-1 flex flex-col items-center gap-1.5">
-                  <div className="w-full h-14 rounded-lg" style={{ backgroundColor: c.hex }} />
-                  <span className="text-[10px] font-medium text-zinc-700 dark:text-zinc-300">{c.name}</span>
-                  <span className="text-[9px] font-mono text-zinc-400">{c.hex}</span>
-                </div>
-              ))}
-            </div>
-            {/* Chart Preview */}
-            <div className="p-4 rounded-xl border border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800">
-              <p className="text-[10px] font-medium text-zinc-400 uppercase mb-3">Chart Preview</p>
-              <div className="flex items-end gap-3 h-28">
-                {[
-                  { h: "75%", color: "#444CE7" },
-                  { h: "55%", color: "#7A5AF8" },
-                  { h: "90%", color: "#15B79E" },
-                  { h: "40%", color: "#EF6820" },
-                  { h: "65%", color: "#EE46BC" },
-                  { h: "50%", color: "#36BFFA" },
-                ].map((bar, i) => (
-                  <div key={i} className="flex-1 rounded-t-md" style={{ backgroundColor: bar.color, height: bar.h }} />
-                ))}
-              </div>
-            </div>
-          </div>
-
           {/* Usage Guide */}
           <div>
             <h5 className="text-xs font-medium text-zinc-500 uppercase mb-2">Usage Guide</h5>
@@ -482,13 +446,6 @@ export default function DesignGuide() {
                   <p className="text-xs font-medium">Surface / Background</p>
                 </div>
                 <p className="text-[11px] text-zinc-500 dark:text-zinc-400">{t("N50 — 비활성 배경, 호버 상태", "N50 — Inactive backgrounds, hover states")}</p>
-              </div>
-              <div className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-700">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#444CE7" }} />
-                  <p className="text-xs font-medium">Data Visualization</p>
-                </div>
-                <p className="text-[11px] text-zinc-500 dark:text-zinc-400">{t("Chart 팔레트 — 차트, 그래프 시리즈 구분", "Chart palette — Distinguishing chart and graph series")}</p>
               </div>
             </div>
           </div>
@@ -682,6 +639,67 @@ export default function DesignGuide() {
   const filtered = activeSection
     ? SECTIONS.filter((s) => s.id === activeSection)
     : SECTIONS;
+
+  if (activeBrandId === "spire") {
+    const downloadSvg = () => {
+      const link = document.createElement("a");
+      link.href = "/spire-logo.svg";
+      link.download = "spire-logo.svg";
+      link.click();
+    };
+    const downloadPng = (scale = 4) => {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth * scale;
+        canvas.height = img.naturalHeight * scale;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+        ctx.scale(scale, scale);
+        ctx.drawImage(img, 0, 0);
+        const link = document.createElement("a");
+        link.href = canvas.toDataURL("image/png");
+        link.download = "spire-logo@4x.png";
+        link.click();
+      };
+      img.src = "/spire-logo.svg";
+    };
+    return (
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold">{t("디자인 가이드", "Design Guide")}</h3>
+        </div>
+        <div className="p-6 rounded-xl border border-zinc-200 bg-white dark:border-zinc-700 dark:bg-zinc-900">
+          <h5 className="text-xs font-medium text-zinc-500 uppercase mb-4">Logo</h5>
+          <div className="py-20 px-10 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center">
+            <img
+              src="/spire-logo.svg"
+              alt="spire"
+              className="h-24"
+              onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-2 mt-4">
+            <button
+              onClick={downloadSvg}
+              className="flex flex-col items-center gap-0.5 px-2 py-2 rounded-lg text-[11px] border border-zinc-200 hover:bg-zinc-100 transition-colors dark:border-zinc-700 dark:hover:bg-zinc-800"
+            >
+              <span className="font-medium">SVG</span>
+              <span className="text-[9px] text-zinc-400">{t("벡터 원본", "Vector")}</span>
+            </button>
+            <button
+              onClick={() => downloadPng(4)}
+              className="flex flex-col items-center gap-0.5 px-2 py-2 rounded-lg text-[11px] border border-zinc-200 hover:bg-zinc-100 transition-colors dark:border-zinc-700 dark:hover:bg-zinc-800"
+            >
+              <span className="font-medium">PNG</span>
+              <span className="text-[9px] text-zinc-400">{t("4x 고해상도", "4x Hi-Res")}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>

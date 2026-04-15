@@ -119,13 +119,13 @@ function SearchPreview({ state, t }: { state: string; t: <T extends React.ReactN
   );
 }
 
-export function FormPreview({ componentName }: { componentName: string }) {
+export function FormPreview({ componentName, brandId }: { componentName: string; brandId?: string }) {
   const { t } = useLocale();
 
   if (componentName === "Search") {
     const states = ["normal", "focused", "filled", "disabled"];
     return (
-      <div className="flex flex-wrap gap-4 mt-3 p-4 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 items-start">
+      <div className={`${brandId === "spire" ? "spire-preview bg-[#242424]" : "bg-zinc-50 dark:bg-zinc-800/50"} flex flex-wrap gap-4 mt-3 p-4 rounded-lg items-start`}>
         {states.map((state) => (
           <div key={state} className="flex flex-col gap-1">
             <span className="text-[10px] text-zinc-400 uppercase">{state}</span>
@@ -139,7 +139,7 @@ export function FormPreview({ componentName }: { componentName: string }) {
   if (componentName === "Dropdown") {
     const states = ["normal", "focused", "filled", "disabled"];
     return (
-      <div className="flex flex-wrap gap-4 mt-3 p-4 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 items-start">
+      <div className={`${brandId === "spire" ? "spire-preview bg-[#242424]" : "bg-zinc-50 dark:bg-zinc-800/50"} flex flex-wrap gap-4 mt-3 p-4 rounded-lg items-start`}>
         {states.map((state) => (
           <div key={state} className="flex flex-col gap-1">
             <span className="text-[10px] text-zinc-400 uppercase">{state}</span>
@@ -153,7 +153,7 @@ export function FormPreview({ componentName }: { componentName: string }) {
   if (componentName === "List Item") {
     const states = ["normal", "hovered", "disabled"];
     return (
-      <div className="flex flex-wrap gap-4 mt-3 p-4 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 items-start">
+      <div className={`${brandId === "spire" ? "spire-preview bg-[#242424]" : "bg-zinc-50 dark:bg-zinc-800/50"} flex flex-wrap gap-4 mt-3 p-4 rounded-lg items-start`}>
         {states.map((state) => (
           <div key={state} className="flex flex-col gap-1">
             <span className="text-[10px] text-zinc-400 uppercase">{state}</span>
@@ -166,7 +166,7 @@ export function FormPreview({ componentName }: { componentName: string }) {
 
   const states = ["normal", "focused", "filled", "error", "disabled"];
   return (
-    <div className="flex flex-wrap gap-4 mt-3 p-4 rounded-lg bg-zinc-50 dark:bg-zinc-800/50">
+    <div className={`${brandId === "spire" ? "spire-preview bg-[#242424]" : "bg-zinc-50 dark:bg-zinc-800/50"} flex flex-wrap gap-4 mt-3 p-4 rounded-lg`}>
       {states.map((state) => (
         <div key={state} className="flex flex-col gap-1">
           <span className="text-[10px] text-zinc-400 uppercase">{state}</span>

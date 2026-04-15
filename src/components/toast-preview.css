@@ -162,3 +162,41 @@
 .dark .ax-toast-delete:hover {
   background-color: #8E8E93;
 }
+
+/* ===================================== */
+/*  SPIRE BRAND OVERRIDES (dark)         */
+/*  bg-surface #242424 / bg-layer #303133*/
+/*  border #494949 / text #F3F3F3        */
+/*  muted #DADADA / accent #FF5F2C       */
+/* ===================================== */
+
+.spire-preview .ax-toast-container {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.spire-preview .ax-toast-clear-all {
+  background-color: transparent;
+  color: #FF5F2C;
+  border: 1px solid #FF5F2C;
+  border-radius: 6px;
+}
+.spire-preview .ax-toast-clear-all::after { background: #FF5F2C; }
+.spire-preview .ax-toast-clear-all:hover::after { opacity: 0.12; }
+.spire-preview .ax-toast-clear-all:active::after { opacity: 0.2; }
+
+.spire-preview .ax-toast-card {
+  background-color: #303133;
+  border: 1px solid #494949;
+  border-radius: 12px;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.4);
+  height: 52px;
+}
+.spire-preview .ax-toast-message { color: #F3F3F3; }
+.spire-preview .ax-toast-time { color: #DADADA; }
+
+.spire-preview .ax-toast-delete {
+  background-color: #8E8E93;
+}
+.spire-preview .ax-toast-delete:hover {
+  background-color: #FF5F2C;
+}

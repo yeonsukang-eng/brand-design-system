@@ -90,10 +90,10 @@ export default function BrandEditor() {
       <div className="max-w-4xl mx-auto px-8 pt-8 pb-8">
 
         {tab === "colors" && <ColorEditor brandId={brand.id} search={search} />}
-        {tab === "typography" && <><TailwindChangelog tab="typography" /><TypographyEditor brandId={brand.id} search={search} /></>}
+        {tab === "typography" && <>{brand.id === "axflow" && <TailwindChangelog tab="typography" />}<TypographyEditor brandId={brand.id} search={search} /></>}
 {tab === "icons" && <IconEditor brandId={brand.id} search={search} />}
         {tab === "elevations" && <ElevationEditor brandId={brand.id} search={search} />}
-        {tab === "components" && <><TailwindChangelog tab="components" /><ComponentEditor brandId={brand.id} search={search} /></>}
+        {tab === "components" && <>{brand.id === "axflow" && <TailwindChangelog tab="components" />}<ComponentEditor brandId={brand.id} search={search} /></>}
 {tab === "export" && <ExportPanel brand={brand} />}
       </div>
       </div>

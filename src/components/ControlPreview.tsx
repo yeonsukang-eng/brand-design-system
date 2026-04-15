@@ -96,14 +96,16 @@ function TogglePreview({ t }: { t: <T extends React.ReactNode>(ko: T, en: T) => 
   );
 }
 
-export function ControlPreview({ componentName }: { componentName: string }) {
+export function ControlPreview({ componentName, brandId }: { componentName: string; brandId?: string }) {
   const { t } = useLocale();
 
   const previews: Record<string, React.ReactNode> = {
     "Segmented Control": <SegmentedPreview t={t} />,
     "Tabs": <TabsPreview t={t} />,
     "Chips": <ChipsPreview t={t} />,
+    "Chip": <ChipsPreview t={t} />,
     "Check box": <CheckboxPreview t={t} />,
+    "Checkbox": <CheckboxPreview t={t} />,
     "Radio": <RadioPreview t={t} />,
     "Toggle": <TogglePreview t={t} />,
   };
@@ -111,8 +113,9 @@ export function ControlPreview({ componentName }: { componentName: string }) {
   const preview = previews[componentName];
   if (!preview) return null;
 
+  const isSpire = brandId === "spire";
   return (
-    <div className="mt-3 p-4 rounded-lg bg-zinc-50 dark:bg-zinc-800/50">
+    <div className={`${isSpire ? "spire-preview bg-[#242424]" : "bg-zinc-50 dark:bg-zinc-800/50"} mt-3 p-4 rounded-lg`}>
       {preview}
     </div>
   );

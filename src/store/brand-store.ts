@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { BrandSystem, ColorToken, TypographyToken, SpacingToken, IconToken, ElevationToken, ComponentToken } from "@/types/brand";
 import { axflowBrand } from "@/data/axflow-brand";
+import { spireBrand } from "@/data/spire-brand";
 
 function generateId() {
   return Math.random().toString(36).substring(2, 9);
@@ -54,7 +55,7 @@ function updateBrandTokens<T>(
 export const useBrandStore = create<BrandStore>()(
   persist(
     (set, get) => ({
-      brands: [axflowBrand],
+      brands: [axflowBrand, spireBrand],
       activeBrandId: "axflow",
 
       getActiveBrand: () => {
@@ -209,9 +210,9 @@ export const useBrandStore = create<BrandStore>()(
     }),
     {
       name: "brand-design-system",
-      version: 27,
+      version: 32,
       migrate: () => ({
-        brands: [axflowBrand],
+        brands: [axflowBrand, spireBrand],
         activeBrandId: "axflow",
       }),
     }

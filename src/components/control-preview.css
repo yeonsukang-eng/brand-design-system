@@ -375,3 +375,109 @@
 .dark .axctrl-toggle.off {
   background-color: #48484A;
 }
+
+/* ===================================== */
+/*  SPIRE BRAND OVERRIDES (Figma tokens) */
+/*  accent #FF5F2C / bg-input #303133    */
+/*  bg-subtle #494949 / border #8E8E93   */
+/*  text #F3F3F3 / muted #DADADA         */
+/* ===================================== */
+
+/* Segmented */
+.spire-preview .axctrl-segmented {
+  background-color: #303133;
+  border-radius: 8px;
+}
+.spire-preview .axctrl-segment {
+  font-family: "Pretendard", sans-serif;
+  color: #DADADA;
+  border-radius: 6px;
+}
+.spire-preview .axctrl-segment.active {
+  background-color: #FF5F2C;
+  color: #FFFFFF;
+  box-shadow: none;
+}
+.spire-preview .axctrl-segment:hover:not(.active) { color: #F3F3F3; }
+
+/* Tabs */
+.spire-preview .axctrl-tabs { border-bottom-color: #494949; }
+.spire-preview .axctrl-tab {
+  font-family: "Pretendard", sans-serif;
+  color: #DADADA;
+}
+.spire-preview .axctrl-tab.active {
+  color: #FF5F2C;
+  border-bottom-color: #FF5F2C;
+}
+.spire-preview .axctrl-tab:hover:not(.active) { color: #F3F3F3; }
+
+/* Chips */
+.spire-preview .axctrl-chip {
+  font-family: "Pretendard", sans-serif;
+  color: #F3F3F3;
+  background-color: #303133;
+  border-color: #8E8E93;
+}
+.spire-preview .axctrl-chip.selected {
+  background-color: #FF5F2C;
+  border-color: #FF5F2C;
+  color: #FFFFFF;
+}
+.spire-preview .axctrl-chip:hover:not(.selected):not(.disabled) {
+  border-color: #FF5F2C;
+  background-color: #494949;
+}
+.spire-preview .axctrl-chip.disabled {
+  color: #8E8E93;
+  border-color: #494949;
+  background-color: #494949;
+}
+
+/* Checkbox */
+.spire-preview .axctrl-checkbox-wrap {
+  font-family: "Pretendard", sans-serif;
+  color: #F3F3F3;
+}
+.spire-preview .axctrl-checkbox-wrap.disabled { color: #8E8E93; }
+.spire-preview .axctrl-checkbox {
+  border-color: #8E8E93;
+  background-color: transparent;
+}
+.spire-preview .axctrl-checkbox.checked,
+.spire-preview .axctrl-checkbox.indeterminate {
+  background-color: #FF5F2C;
+  border-color: #FF5F2C;
+}
+.spire-preview .axctrl-checkbox.checked svg path,
+.spire-preview .axctrl-checkbox.indeterminate svg path {
+  stroke: #FFFFFF;
+}
+.spire-preview .axctrl-checkbox.disabled {
+  background-color: #494949;
+  border-color: #8E8E93;
+}
+.spire-preview .axctrl-checkbox:hover:not(.checked):not(.indeterminate):not(.disabled) {
+  border-color: #FF5F2C;
+}
+
+/* Radio */
+.spire-preview .axctrl-radio-wrap {
+  font-family: "Pretendard", sans-serif;
+  color: #F3F3F3;
+}
+.spire-preview .axctrl-radio-wrap.disabled { color: #8E8E93; }
+.spire-preview .axctrl-radio { border-color: #8E8E93; }
+.spire-preview .axctrl-radio.selected { border-color: #FF5F2C; }
+.spire-preview .axctrl-radio.disabled {
+  border-color: #8E8E93;
+  background-color: #494949;
+}
+.spire-preview .axctrl-radio:hover:not(.selected):not(.disabled) { border-color: #FF5F2C; }
+.spire-preview .axctrl-radio-dot { background-color: #FF5F2C; }
+
+/* Toggle */
+.spire-preview .axctrl-toggle.on { background-color: #FF5F2C; }
+.spire-preview .axctrl-toggle.off { background-color: #494949; }
+.spire-preview .axctrl-toggle.on .axctrl-toggle-thumb { background-color: #FFFFFF; }
+.spire-preview .axctrl-toggle.off .axctrl-toggle-thumb { background-color: #DADADA; }

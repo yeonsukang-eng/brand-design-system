@@ -31,8 +31,9 @@ function ToastCard({ message, time, onDelete }: {
   );
 }
 
-export function ToastPreview() {
+export function ToastPreview({ brandId }: { brandId?: string } = {}) {
   const [toasts, setToasts] = useState<ToastItem[]>(SAMPLE_TOASTS);
+  const isSpire = brandId === "spire";
 
   const handleDeleteAll = () => {
     setToasts([]);
@@ -50,7 +51,7 @@ export function ToastPreview() {
   };
 
   return (
-    <div className="flex flex-col gap-6 mt-3 p-4 rounded-lg bg-zinc-50 dark:bg-zinc-800/50">
+    <div className={`${isSpire ? "spire-preview bg-[#242424]" : "bg-zinc-50 dark:bg-zinc-800/50"} flex flex-col gap-6 mt-3 p-4 rounded-lg`}>
       {/* 3개 이상: 전체 삭제 버튼 포함 */}
       <div>
         <p className="text-[10px] font-medium text-zinc-400 uppercase mb-3">3개 이상 — 전체 삭제 버튼 노출</p>

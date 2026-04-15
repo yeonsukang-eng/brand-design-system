@@ -32,14 +32,6 @@ export const axflowBrand: BrandSystem = {
     { id: "w100", name: "Warning/100", hex: "#FEFDF0", category: "semantic" },
     { id: "i600", name: "Info/600", hex: "#444CE7", category: "semantic" },
     { id: "i100", name: "Info/100", hex: "#EEF4FF", category: "semantic" },
-
-    // Data Visualization
-    { id: "dv-indigo", name: "Chart/Indigo", hex: "#444CE7", category: "accent" },
-    { id: "dv-violet", name: "Chart/Violet", hex: "#7A5AF8", category: "accent" },
-    { id: "dv-teal", name: "Chart/Teal", hex: "#15B79E", category: "accent" },
-    { id: "dv-orange", name: "Chart/Orange", hex: "#EF6820", category: "accent" },
-    { id: "dv-pink", name: "Chart/Pink", hex: "#EE46BC", category: "accent" },
-    { id: "dv-sky", name: "Chart/Sky", hex: "#36BFFA", category: "accent" },
   ],
   typography: [
     // Headline — Pretendard (Outfit fallback for EN), Bold, 140%
